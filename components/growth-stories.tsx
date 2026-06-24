@@ -1,46 +1,44 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowLeft, ArrowRight, BarChart3, ClipboardCheck, PackageCheck } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const stories = [
   {
-    label: "주문 처리",
-    title: "국가별 주문 확인 시간을 줄이고 출고 흐름을 통일한 사례",
-    seller: "Shopee 8개국 운영 셀러",
-    metric: "35%",
-    metricLabel: "출고 준비 시간 감소",
-    before: "국가별·샵별 주문을 따로 확인해 당일 처리 우선순위를 잡기 어려웠습니다.",
-    after: "통합 대시보드에서 주문 상태와 TOP 판매 상품을 함께 보며 처리 흐름을 먼저 정리했습니다.",
-    icon: ClipboardCheck,
-    tone: "from-emerald-400 to-teal-300",
+    title: "국가별 주문과 재고를 한곳에서 확인해 발주·포장 흐름을 단순화했습니다",
+    seller: "6개국 12개샵 운영 셀러",
+    nickname: "M 셀러님",
+    quote: "샵이 늘어나면서 주문 확인보다 정리에 더 많은 시간이 들기 시작했어요.",
+    before: "샵별로 주문을 따로 확인하고 재고를 수기로 맞추느라 반복 정리에 많은 시간이 쓰였습니다.",
+    after: "통합 화면에서 주문과 재고를 함께 확인하면서 상품 확장과 판매 전략에 더 집중할 수 있었습니다.",
+    avatar: "👩‍💻",
+    accent: "bg-emerald-400",
   },
   {
-    label: "재고·발주",
-    title: "반복 발주를 줄이고 SKU 기준으로 입고 현황을 관리한 사례",
-    seller: "상품 수가 빠르게 늘어난 셀러",
-    metric: "48%",
-    metricLabel: "재고 운영비용 절감",
-    before: "같은 제품을 하루에도 여러 번 확인하고, 이미 보유한 상품을 다시 주문하는 일이 반복됐습니다.",
-    after: "SKU 기준으로 주문과 재고를 연결해 부족 상품과 발주 수량을 한 화면에서 점검했습니다.",
-    icon: PackageCheck,
-    tone: "from-sky-400 to-blue-300",
+    title: "외부에서도 발주 타이밍을 놓치지 않고 주문 흐름을 유지했습니다",
+    seller: "4년차 장기 운영 셀러",
+    nickname: "J 셀러님",
+    quote: "사무실에 있지 않아도 주문 흐름을 놓치지 않는 게 가장 컸어요.",
+    before: "자리를 비우거나 여행 중일 때 발주 타이밍을 놓칠까 봐 개인 일정을 쉽게 잡기 어려웠습니다.",
+    after: "외부에서도 주문 확인과 발주가 가능해져 장소에 얽매이지 않는 운영 구조를 만들 수 있었습니다.",
+    avatar: "🧑‍💼",
+    accent: "bg-sky-400",
   },
   {
-    label: "마진 분석",
-    title: "잘 팔리는 상품과 실제 남는 상품을 구분한 사례",
-    seller: "마진 점검이 필요한 성장 셀러",
-    metric: "72%",
-    metricLabel: "발주 판단 시간 감소",
-    before: "판매량은 보였지만 매입가, 환율, 정산 흐름이 흩어져 실제 수익성을 바로 보기 어려웠습니다.",
-    after: "상품별 마진과 판매가격 점검 대상을 분리해 소싱과 가격 조정의 우선순위를 잡았습니다.",
-    icon: BarChart3,
-    tone: "from-violet-400 to-fuchsia-300",
+    title: "한글 송장과 발주 시스템으로 주문이 늘어도 혼자 운영할 수 있었습니다",
+    seller: "6개월차 투잡 셀러",
+    nickname: "R 셀러님",
+    quote: "주문이 늘어나는 건 좋은데, 혼자 감당할 수 있을지가 제일 걱정이었어요.",
+    before: "외국어 상품명 확인과 송장 준비에 퇴근 후 시간이 빠르게 사라져 혼자 감당하기 어렵게 느껴졌습니다.",
+    after: "한글 송장으로 상품 확인 시간을 줄이고 발주 흐름을 단순화해, 추가 인력 없이 투잡 운영을 이어갈 수 있었습니다.",
+    avatar: "🙋‍♀️",
+    accent: "bg-violet-400",
   },
 ];
 
 export function GrowthStories() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const activeStory = stories[activeIndex];
 
   const goToPrevious = () => {
@@ -51,83 +49,95 @@ export function GrowthStories() {
     setActiveIndex((current) => (current === stories.length - 1 ? 0 : current + 1));
   };
 
+  useEffect(() => {
+    if (isPaused) return;
+
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => (current === stories.length - 1 ? 0 : current + 1));
+    }, 5200);
+
+    return () => window.clearInterval(timer);
+  }, [isPaused]);
+
   return (
     <div className="grid gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
       <div>
         <h2 className="text-balance text-3xl font-black leading-tight text-slate-950 md:text-4xl">
-          운영이 정리되면
+          운영이 단순해지면
           <br />
-          성장 속도도 달라집니다
+          성장할 공간이 생깁니다
         </h2>
         <p className="mt-4 max-w-xl text-lg font-semibold leading-8 text-slate-600">
-          주문 처리, 재고 대응, 마진 점검처럼 매일 반복되는 운영 지표를 중심으로 성장사례를 보여줍니다.
+          반복 업무에 묶여 있던 시간이 줄어들수록, 상품과 전략에 집중할 수 있는 시간은 늘어납니다.
         </p>
 
-        <div className="mt-7 flex items-center gap-2">
+        <div className="mt-7 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-2 py-1.5 shadow-[0_8px_18px_rgba(15,23,42,0.06)]">
           <button
             type="button"
             onClick={goToPrevious}
-            className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-md border border-border bg-white text-slate-700 shadow-sm transition hover:border-primary/35 hover:text-primary"
+            className="focus-ring inline-flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-primary-soft hover:text-primary-dark"
             aria-label="이전 성장사례 보기"
           >
-            <ArrowLeft className="h-5 w-5" />
+            <ArrowLeft className="h-4 w-4" />
           </button>
           <button
             type="button"
             onClick={goToNext}
-            className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-md border border-border bg-white text-slate-700 shadow-sm transition hover:border-primary/35 hover:text-primary"
+            className="focus-ring inline-flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-primary-soft hover:text-primary-dark"
             aria-label="다음 성장사례 보기"
           >
-            <ArrowRight className="h-5 w-5" />
+            <ArrowRight className="h-4 w-4" />
           </button>
-          <div className="ml-2 flex items-center gap-2">
+          <div className="mx-1 h-5 w-px bg-slate-200" aria-hidden="true" />
+          <div className="flex items-center gap-1.5 px-1">
             {stories.map((story, index) => (
               <button
-                key={story.label}
+                key={story.seller}
                 type="button"
                 onClick={() => setActiveIndex(index)}
-                className={`h-2.5 rounded-full transition ${
-                  activeIndex === index ? "w-8 bg-primary" : "w-2.5 bg-slate-300 hover:bg-slate-400"
+                className={`h-2 rounded-full transition ${
+                  activeIndex === index ? "w-7 bg-primary" : "w-2 bg-slate-300 hover:bg-slate-400"
                 }`}
-                aria-label={`${story.label} 사례 보기`}
+                aria-label={`${story.seller} 사례 보기`}
               />
             ))}
           </div>
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-primary/15 bg-[linear-gradient(135deg,#ffffff_0%,#f8fffb_48%,#eefbf6_100%)] p-3 shadow-[0_26px_70px_rgba(15,23,42,0.08)]">
+      <div
+        className="overflow-hidden"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        onFocus={() => setIsPaused(true)}
+        onBlur={() => setIsPaused(false)}
+      >
         <div
           className="flex transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${activeIndex * 100}%)` }}
         >
           {stories.map((story) => {
-            const Icon = story.icon;
-            const isActive = story.label === activeStory.label;
+            const isActive = story.seller === activeStory.seller;
 
             return (
-              <article key={story.label} className="min-w-full p-2 md:p-4" aria-hidden={!isActive}>
-                <div className="relative overflow-hidden rounded-lg border border-slate-200/80 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.07)] md:p-8">
-                  <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${story.tone}`} />
-                  <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+              <article key={story.seller} className="min-w-full" aria-hidden={!isActive}>
+                <div className="relative flex min-h-[620px] flex-col overflow-hidden rounded-lg border border-slate-200/80 bg-white p-6 shadow-[0_18px_42px_rgba(15,23,42,0.07)] md:min-h-[560px] md:p-8">
+                  <div className="flex flex-1 flex-col gap-6">
                     <div className="min-w-0">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary-dark ring-1 ring-primary/15">
-                          <Icon className="h-6 w-6" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-black text-primary-dark">{story.label}</p>
-                          <p className="text-xs font-bold text-slate-500">{story.seller}</p>
+                      <div className="flex items-center gap-4 border-b border-slate-100 pb-5">
+                        <span className="shrink-0 text-4xl leading-none" aria-hidden="true">{story.avatar}</span>
+                        <span className={`h-10 w-1 rounded-full ${story.accent}`} aria-hidden="true" />
+                        <div className="min-w-0">
+                          <p className="text-xs font-black text-slate-400">{story.seller}</p>
+                          <p className="mt-1 text-xl font-black leading-tight text-slate-950">{story.nickname}</p>
                         </div>
                       </div>
-                      <h3 className="mt-6 text-2xl font-black leading-tight tracking-tight text-slate-950 md:text-3xl">
+                      <blockquote className="mt-6 flex min-h-[128px] items-center rounded-lg bg-slate-50 px-5 py-4 text-lg font-black leading-8 text-slate-950 md:min-h-[120px]">
+                        “{story.quote}”
+                      </blockquote>
+                      <h3 className="mt-6 min-h-[116px] text-2xl font-black leading-tight tracking-tight text-slate-950 md:min-h-[108px] md:text-3xl">
                         {story.title}
                       </h3>
-                    </div>
-
-                    <div className="shrink-0 rounded-lg border border-primary/15 bg-primary-soft/60 px-5 py-4 text-center">
-                      <p className="text-4xl font-black text-primary-dark md:text-5xl">{story.metric}</p>
-                      <p className="mt-1 text-xs font-black text-slate-600">{story.metricLabel}</p>
                     </div>
                   </div>
 
