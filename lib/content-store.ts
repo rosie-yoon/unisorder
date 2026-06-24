@@ -25,6 +25,9 @@ export type GuideBlock =
         body: string;
         bullets?: string[];
         note?: string;
+        imageSrc?: string;
+        imageAlt?: string;
+        imageCaption?: string;
       }>;
     }
   | {
@@ -183,6 +186,9 @@ export function normalizeGuideBlocks(value: unknown): GuideBlock[] {
             body: ensureText(item.body, "단계 내용"),
             bullets: Array.isArray(item.bullets) ? item.bullets.map((bullet) => String(bullet).trim()).filter(Boolean) : undefined,
             note: typeof item.note === "string" && item.note.trim() ? item.note.trim() : undefined,
+            imageSrc: typeof item.imageSrc === "string" && item.imageSrc.trim() ? item.imageSrc.trim() : undefined,
+            imageAlt: typeof item.imageAlt === "string" && item.imageAlt.trim() ? item.imageAlt.trim() : undefined,
+            imageCaption: typeof item.imageCaption === "string" && item.imageCaption.trim() ? item.imageCaption.trim() : undefined,
           };
         }),
       };

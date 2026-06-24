@@ -1,5 +1,6 @@
-import { AlertTriangle, Check, Info, Lightbulb } from "lucide-react";
+import { AlertTriangle, Check, Info, Lightbulb, MousePointerClick } from "lucide-react";
 import type { Guide, GuideBlock } from "@/lib/guides";
+import { ManualImageViewer } from "@/components/manual-image-viewer";
 
 const calloutStyle = {
   tip: {
@@ -18,23 +19,26 @@ const calloutStyle = {
 
 export function GuideHero({ guide }: { guide: Guide }) {
   const Icon = guide.icon;
+  const hasStepImages = guide.blocks.some((block) =>
+    block.type === "steps" && block.items.some((item) => Boolean(item.imageSrc)),
+  );
 
   return (
-    <section className="border-b border-border bg-white">
+    <section className="border-b border-primary/10 bg-[linear-gradient(180deg,#ffffff_0%,#f5fbf8_100%)]">
       <div className="shell py-12 md:py-16">
-        <div className="grid gap-8 lg:grid-cols-[1fr_360px] lg:items-end">
+        <div className="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-end">
           <div>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary-soft px-3 py-1 text-sm font-bold text-primary-dark">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white px-3 py-1.5 text-sm font-bold text-primary-dark shadow-sm">
               <Icon className="h-4 w-4" />
               {guide.category}
             </div>
             <h1 className="max-w-3xl text-balance text-3xl font-black tracking-tight text-slate-950 md:text-5xl">
-              {guide.title} 이용 가이드
+              {guide.title}
             </h1>
             <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">{guide.description}</p>
           </div>
-          <div className="surface rounded-lg p-5">
-            <dl className="grid grid-cols-2 gap-4 text-sm">
+          <div className="rounded-lg border border-primary/15 bg-white/85 p-5 shadow-[0_18px_50px_rgba(15,118,84,0.08)]">
+            <dl className="grid grid-cols-2 gap-3 text-sm">
               <div>
                 <dt className="font-semibold text-slate-500">카테고리</dt>
                 <dd className="mt-1 font-black text-slate-950">{guide.category}</dd>
@@ -44,6 +48,11 @@ export function GuideHero({ guide }: { guide: Guide }) {
                 <dd className="mt-1 font-black text-slate-950">{guide.duration}</dd>
               </div>
             </dl>
+            {hasStepImages ? (
+              <div className="mt-5 rounded-md bg-primary-soft px-4 py-3 text-sm font-bold leading-6 text-primary-dark">
+                이미지가 있는 단계는 클릭해서 크게 볼 수 있습니다.
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
@@ -84,35 +93,50 @@ function GuideBlockView({ block }: { block: GuideBlock }) {
   if (block.type === "steps") {
     return (
       <section>
-        <h2 className="mb-6 text-center text-3xl font-black tracking-tight text-slate-950">{block.title}</h2>
-        <div className="space-y-5">
+        <div className="mb-6">
+          <p className="inline-flex items-center gap-2 rounded-full bg-primary-soft px-3 py-1 text-sm font-black text-primary-dark">
+            <MousePointerClick className="h-4 w-4" />
+            단계별 매뉴얼
+          </p>
+          <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-950 md:text-3xl">{block.title}</h2>
+        </div>
+        <div className="space-y-6">
           {block.items.map((item, index) => (
-            <article key={item.title} className="rounded-lg border border-border bg-white p-5 shadow-sm md:p-6">
-              <div className="flex gap-4">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-black text-white">
-                  {index + 1}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-xl font-black text-slate-950">{item.title}</h3>
-                  <p className="mt-3 leading-7 text-slate-600">{item.body}</p>
-                  {item.bullets && (
-                    <div className="mt-4 rounded-lg bg-slate-50 p-4">
-                      <ul className="space-y-2 text-sm text-slate-700">
-                        {item.bullets.map((bullet) => (
-                          <li key={bullet} className="flex gap-2">
-                            <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                            <span>{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  {item.note && (
-                    <p className="mt-4 rounded-md border border-warning/30 bg-warning-soft px-4 py-3 text-sm font-semibold text-amber-800">
+            <article key={item.title} className="overflow-hidden rounded-lg border border-primary/12 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.05)]">
+              <div className={item.imageSrc ? "grid gap-0 lg:grid-cols-[0.92fr_1.08fr]" : "block"}>
+                <div className="p-5 md:p-7">
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-950 text-sm font-black text-white">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="text-xl font-black tracking-tight text-slate-950 md:text-2xl">{item.title}</h3>
+                  </div>
+                  <p className="mt-5 text-base leading-8 text-slate-600">{item.body}</p>
+                  {item.bullets && item.bullets.length > 0 ? (
+                    <ul className="mt-5 space-y-2.5 text-sm font-semibold text-slate-700">
+                      {item.bullets.map((bullet) => (
+                        <li key={bullet} className="flex gap-2.5">
+                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  {item.note ? (
+                    <p className="mt-5 rounded-md border border-warning/25 bg-warning-soft px-4 py-3 text-sm font-bold leading-6 text-amber-800">
                       {item.note}
                     </p>
-                  )}
+                  ) : null}
                 </div>
+                {item.imageSrc ? (
+                  <figure className="border-t border-primary/10 bg-[linear-gradient(135deg,#f7faf9_0%,#eef9f4_100%)] p-4 md:p-5 lg:border-l lg:border-t-0">
+                    <ManualImageViewer
+                      src={item.imageSrc}
+                      alt={item.imageAlt ?? item.title}
+                      caption={item.imageCaption ?? `${item.title} 화면`}
+                    />
+                  </figure>
+                ) : null}
               </div>
             </article>
           ))}

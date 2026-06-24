@@ -67,6 +67,9 @@ const sampleBlocks: GuideBlock[] = [
         title: "첫 번째 단계",
         body: "관리 화면에서 이동해야 할 메뉴와 클릭해야 할 버튼을 적습니다.",
         bullets: ["메뉴 이동", "상태 확인", "저장"],
+        imageSrc: "/product/unisorder-dashboard.png",
+        imageAlt: "유니스오더 대시보드 화면",
+        imageCaption: "예시 화면입니다. 실제 매뉴얼 이미지 URL로 교체하세요.",
       },
     ],
   },
@@ -150,7 +153,16 @@ function createBlock(type: GuideBlockType): GuideBlock {
     return {
       type,
       title: "새 단계",
-      items: [{ title: "1단계", body: "단계 설명을 입력하세요.", bullets: ["확인 항목"] }],
+      items: [
+        {
+          title: "1단계",
+          body: "단계 설명을 입력하세요.",
+          bullets: ["확인 항목"],
+          imageSrc: "",
+          imageAlt: "",
+          imageCaption: "",
+        },
+      ],
     };
   }
 
@@ -978,13 +990,18 @@ function BlockFields({
     return (
       <div className="mt-4 space-y-4">
         <BaseTitle title={block.title} onChange={updateTitle} />
-        <NestedListHeader label="단계" onAdd={() => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: [...current.items, { title: "새 단계", body: "내용을 입력하세요.", bullets: [] }] } : current)} />
+        <NestedListHeader label="단계" onAdd={() => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: [...current.items, { title: "새 단계", body: "내용을 입력하세요.", bullets: [], imageSrc: "", imageAlt: "", imageCaption: "" }] } : current)} />
         <div className="space-y-3">
           {block.items.map((item, itemIndex) => (
             <div key={itemIndex} className="rounded-md border border-border bg-white p-3">
               <Input label="단계 제목" value={item.title} onChange={(title) => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, title } : step) } : current)} />
               <TextArea label="단계 설명" value={item.body} onChange={(body) => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, body } : step) } : current)} />
               <TextArea label="체크 항목, 한 줄에 하나씩" value={splitLines(item.bullets)} onChange={(value) => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, bullets: linesToArray(value) } : step) } : current)} />
+              <div className="grid gap-3 md:grid-cols-2">
+                <Input label="이미지 URL" value={item.imageSrc ?? ""} onChange={(imageSrc) => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, imageSrc: imageSrc || undefined } : step) } : current)} />
+                <Input label="이미지 대체 텍스트" value={item.imageAlt ?? ""} onChange={(imageAlt) => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, imageAlt: imageAlt || undefined } : step) } : current)} />
+              </div>
+              <Input label="이미지 캡션" value={item.imageCaption ?? ""} onChange={(imageCaption) => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, imageCaption: imageCaption || undefined } : step) } : current)} />
               <Input label="참고 메모" value={item.note ?? ""} onChange={(note) => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, note: note || undefined } : step) } : current)} />
               <RemoveNestedButton onClick={() => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.filter((_, stepIndex) => stepIndex !== itemIndex) } : current)} />
             </div>
