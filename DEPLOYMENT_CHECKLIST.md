@@ -44,6 +44,12 @@ Completed on 2026-06-24 KST:
 - Deployment URL: `https://unisorder-6z2n1f8bz-rosie-yoons-projects.vercel.app`
 - Production environment variable added:
   - `UNISORDER_ADMIN_TOKEN`
+  - `SUPABASE_URL`
+  - `SUPABASE_SERVICE_ROLE_KEY`
+- Supabase project: `unisorder-site`
+  - Project ref: `nchzpvxvyboceuzbzlmv`
+  - Region: `ap-northeast-1`
+  - Dashboard: `https://supabase.com/dashboard/project/nchzpvxvyboceuzbzlmv`
 
 Notes:
 
@@ -122,23 +128,27 @@ In Cloudflare DNS:
    - Pricing cards
    - Footer
 
+## Content Database
+
+Completed on 2026-06-24 KST:
+
+1. Created Supabase project `unisorder-site`.
+2. Applied database migration:
+   - `supabase/migrations/20260624054500_create_content_tables.sql`
+3. Seeded initial content:
+   - 6 FAQs
+   - 4 guides
+4. Updated the app content store:
+   - Uses Supabase when `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are set.
+   - Falls back to `data/content.json` for local/offline use.
+5. Verified production CRUD through `https://unisorder.vercel.app`:
+   - FAQ create/update/delete
+   - Guide create/update/delete
+
 ## Immediate Next Engineering Task
 
-Before serious public operation, replace `data/content.json` storage with a real database-backed store.
+The content store has been moved to Supabase. Next engineering improvements:
 
-Recommended table split:
-
-- `faqs`
-- `guides`
-- `guide_blocks`
-
-Recommended backend:
-
-- Supabase Postgres + Row Level Security
-- Admin API keeps the same route shape:
-  - `/api/admin/faqs`
-  - `/api/admin/faqs/[id]`
-  - `/api/admin/guides`
-  - `/api/admin/guides/[id]`
-
-The current `lib/content-store.ts` is intentionally isolated so this migration is small.
+1. Replace the raw JSON editor for guide blocks with structured admin controls.
+2. Add admin login/session UX instead of token entry.
+3. Decide whether to merge `codex/unisorder-site` into GitHub `main` or change Vercel production branch to `codex/unisorder-site`.
