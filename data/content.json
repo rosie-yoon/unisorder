@@ -1,0 +1,299 @@
+{
+  "faqs": [
+    {
+      "id": "faq-lazada-platform",
+      "question": "Lazada도 이번 개편 범위에 포함되나요?",
+      "answer": "네. 공식 사이트 메시지는 Shopee 전용이 아니라 Shopee·Lazada를 함께 다루는 글로벌 셀러 운영 플랫폼으로 확장합니다.",
+      "sortOrder": 10,
+      "isPublished": true,
+      "showOnHome": true
+    },
+    {
+      "id": "faq-scroll-navigation",
+      "question": "메뉴 클릭 시 스크롤되는 방식으로 바뀌나요?",
+      "answer": "홈에서는 섹션 스크롤로 빠르게 둘러보고, 상세 정보는 개별 페이지에서 볼 수 있는 하이브리드 구조로 갑니다.",
+      "sortOrder": 20,
+      "isPublished": true,
+      "showOnHome": true
+    },
+    {
+      "id": "faq-guide-admin",
+      "question": "이용 가이드는 직접 수정할 수 있나요?",
+      "answer": "관리자 화면에서 단계별 카드, 이미지, FAQ 블록을 직접 등록하고 수정할 수 있게 운영합니다.",
+      "sortOrder": 30,
+      "isPublished": true,
+      "showOnHome": true
+    },
+    {
+      "id": "faq-app-link",
+      "question": "기존 유니스오더 앱은 어떻게 연결되나요?",
+      "answer": "공식 사이트는 새로 만들고, 실제 앱 로그인은 app.unisorder.com으로 연결하는 구조를 권장합니다.",
+      "sortOrder": 40,
+      "isPublished": true,
+      "showOnHome": false
+    },
+    {
+      "id": "faq-guide-card-ui",
+      "question": "셀잇파파 같은 단계별 카드 UI가 가능한가요?",
+      "answer": "가능합니다. 가이드 블록 중 steps 타입을 입력하면 공개 페이지에서 자동으로 단계별 카드로 렌더링합니다.",
+      "sortOrder": 50,
+      "isPublished": true,
+      "showOnHome": false
+    },
+    {
+      "id": "faq-figma-manual",
+      "question": "Figma 임시 매뉴얼은 계속 써야 하나요?",
+      "answer": "프로토타입으로만 두고, 검색 노출과 운영 관리는 Next.js 공식 사이트로 옮기는 것이 좋습니다.",
+      "sortOrder": 60,
+      "isPublished": true,
+      "showOnHome": false
+    }
+  ],
+  "guides": [
+    {
+      "id": "guide-shopee-connection",
+      "slug": "shopee-connection",
+      "title": "쇼피 계정 연동",
+      "category": "Shopee 연동",
+      "description": "유니스오더에서 쇼피 매장을 연결하고 주문, 상품, 정산 데이터를 동기화하는 첫 설정을 안내합니다.",
+      "duration": "약 5분",
+      "iconName": "link",
+      "sortOrder": 10,
+      "isPublished": true,
+      "blocks": [
+        {
+          "type": "overview",
+          "title": "연동 전에 알아둘 것",
+          "body": "쇼피 연동은 유니스오더의 주문 수집, 한글 송장, SKU 재고 관리, 마진 분석을 사용하기 위한 첫 단계입니다. 운영 중인 국가와 권한 상태를 먼저 확인하면 설정 시간을 줄일 수 있습니다.",
+          "cards": [
+            {
+              "title": "메인 계정 권장",
+              "body": "권한 누락을 줄이기 위해 매장 관리 권한이 있는 계정으로 로그인합니다."
+            },
+            {
+              "title": "국가별 매장 확인",
+              "body": "싱가포르, 베트남, 태국 등 운영 중인 매장이 목록에 보이는지 확인합니다."
+            },
+            {
+              "title": "동기화 대기",
+              "body": "최초 연동 후 주문과 상품 데이터가 반영되는 데 시간이 걸릴 수 있습니다."
+            }
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "단계별 연동 방법",
+          "items": [
+            {
+              "title": "플랫폼 연동 메뉴로 이동",
+              "body": "유니스오더 앱에 로그인한 뒤 설정 또는 플랫폼 연동 메뉴에서 Shopee를 선택합니다.",
+              "bullets": ["앱 로그인", "플랫폼 연동 선택", "Shopee 연결 시작"]
+            },
+            {
+              "title": "쇼피 권한 승인",
+              "body": "Shopee 인증 화면에서 계정으로 로그인하고 유니스오더 접근 권한을 승인합니다.",
+              "bullets": ["쇼피 로그인", "권한 범위 확인", "승인 버튼 클릭"],
+              "note": "서브 계정 사용 시 일부 매장이 보이지 않을 수 있습니다."
+            },
+            {
+              "title": "연동 매장 확인",
+              "body": "유니스오더로 돌아와 연결된 국가와 매장 목록, 동기화 상태를 확인합니다.",
+              "bullets": ["국가별 매장 목록 확인", "동기화 상태 확인", "주문 관리 화면에서 데이터 확인"]
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "tip",
+          "title": "처음 연동한 뒤 바로 확인할 화면",
+          "body": "주문 관리 화면에서 최근 주문이 보이는지 확인하고, 송장 출력이 필요한 주문은 SKU와 배송 상태까지 함께 점검하세요."
+        }
+      ]
+    },
+    {
+      "id": "guide-lazada-connection",
+      "slug": "lazada-connection",
+      "title": "Lazada 계정 연동",
+      "category": "Lazada 연동",
+      "description": "유니스오더에서 Lazada 매장을 연결하고 주문, 송장, SKU 관리 흐름으로 가져오는 방법을 안내합니다.",
+      "duration": "약 5분",
+      "iconName": "link",
+      "sortOrder": 20,
+      "isPublished": true,
+      "blocks": [
+        {
+          "type": "overview",
+          "title": "Lazada 연동 전에 확인할 것",
+          "body": "Lazada 연동은 Shopee와 함께 운영하는 셀러가 플랫폼별 주문을 하나의 기준으로 정리하기 위한 설정입니다. 연동 권한, 운영 국가, 상품 SKU 기준을 먼저 확인하면 이후 송장과 재고 관리가 쉬워집니다.",
+          "cards": [
+            {
+              "title": "운영 국가 확인",
+              "body": "Lazada에서 운영 중인 국가와 매장 권한을 먼저 확인합니다."
+            },
+            {
+              "title": "SKU 기준 정리",
+              "body": "Shopee와 Lazada에서 같은 상품을 어떤 SKU로 묶을지 기준을 정합니다."
+            },
+            {
+              "title": "주문 동기화 확인",
+              "body": "연동 후 최근 주문이 유니스오더 주문 관리 화면에 들어오는지 확인합니다."
+            }
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "단계별 연동 방법",
+          "items": [
+            {
+              "title": "플랫폼 연동에서 Lazada 선택",
+              "body": "유니스오더 앱의 플랫폼 연동 메뉴에서 Lazada를 선택하고 연결을 시작합니다.",
+              "bullets": ["앱 로그인", "플랫폼 연동 선택", "Lazada 연결 시작"]
+            },
+            {
+              "title": "Lazada 계정 권한 승인",
+              "body": "Lazada 인증 화면에서 계정으로 로그인하고 유니스오더 접근 권한을 승인합니다.",
+              "bullets": ["Lazada 로그인", "권한 범위 확인", "승인 버튼 클릭"]
+            },
+            {
+              "title": "주문 및 SKU 기준 확인",
+              "body": "연동된 주문이 들어오는지 확인하고, Shopee와 함께 관리할 SKU 기준을 점검합니다.",
+              "bullets": ["최근 주문 확인", "상품/SKU 매칭 확인", "송장 출력 테스트"]
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "info",
+          "title": "Shopee와 Lazada를 함께 운영한다면",
+          "body": "플랫폼 이름보다 SKU와 작업 상태를 중심으로 보는 것이 중요합니다. 같은 상품을 플랫폼별로 다르게 처리하지 않도록 기준을 통일하세요."
+        }
+      ]
+    },
+    {
+      "id": "guide-invoice-printing",
+      "slug": "invoice-printing",
+      "title": "한글 커스텀 송장 출력",
+      "category": "송장 출력",
+      "description": "외국어 주문 정보를 한글 송장으로 정리하고 픽패킹 흐름에 맞게 출력하는 방법을 설명합니다.",
+      "duration": "약 4분",
+      "iconName": "receipt",
+      "sortOrder": 30,
+      "isPublished": true,
+      "blocks": [
+        {
+          "type": "overview",
+          "title": "송장 출력 흐름",
+          "body": "유니스오더의 한글 송장은 주문 확인, 상품 식별, 피킹, 패킹 작업을 한 화면에서 이어지도록 설계합니다. 팀원이 같은 기준으로 작업하도록 출력 항목을 미리 정리하는 것이 중요합니다.",
+          "cards": [
+            {
+              "title": "주문 정보",
+              "body": "수취인, 국가, 주문번호, 배송 상태를 확인합니다."
+            },
+            {
+              "title": "상품 식별",
+              "body": "SKU, 옵션명, 한글 상품명을 중심으로 작업합니다."
+            },
+            {
+              "title": "출력 관리",
+              "body": "출력 완료 여부를 표시해 중복 작업을 줄입니다."
+            }
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "송장 출력 단계",
+          "items": [
+            {
+              "title": "출력 대상 주문 필터링",
+              "body": "주문 관리에서 출고가 필요한 주문만 필터링합니다.",
+              "bullets": ["국가 선택", "배송 상태 선택", "미출력 주문만 보기"]
+            },
+            {
+              "title": "한글 송장 미리보기",
+              "body": "상품명, 옵션명, SKU, 수량이 작업자가 이해하기 쉬운 형태로 표시되는지 확인합니다.",
+              "bullets": ["상품명 확인", "SKU 매칭 확인", "옵션 누락 여부 확인"]
+            },
+            {
+              "title": "출력 후 상태 관리",
+              "body": "출력이 끝난 주문은 작업 완료 상태로 구분해 중복 출력과 누락을 방지합니다.",
+              "bullets": ["출력 버튼 클릭", "출력 완료 표시", "작업자 공유"]
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "tone": "warning",
+          "title": "SKU가 비어 있으면 작업 효율이 크게 떨어집니다",
+          "body": "송장 출력 전에 SKU 규칙을 먼저 정리해두면 피킹 오류와 작업자 문의를 줄일 수 있습니다."
+        }
+      ]
+    },
+    {
+      "id": "guide-margin-analysis",
+      "slug": "margin-analysis",
+      "title": "마진 데이터 분석",
+      "category": "정산/마진",
+      "description": "매입가, 수수료, 배송비, 정산 데이터를 기준으로 실제 수익성을 확인하는 방법을 안내합니다.",
+      "duration": "약 6분",
+      "iconName": "calculator",
+      "sortOrder": 40,
+      "isPublished": true,
+      "blocks": [
+        {
+          "type": "overview",
+          "title": "마진 분석의 기준",
+          "body": "정확한 마진 분석은 매출보다 비용을 먼저 정리하는 데서 시작합니다. 매입가와 배송비, 플랫폼 수수료가 연결되면 상품별 수익성과 손실 위험을 빠르게 볼 수 있습니다.",
+          "cards": [
+            {
+              "title": "매입가",
+              "body": "상품별 원가와 옵션별 차이를 관리합니다."
+            },
+            {
+              "title": "배송비",
+              "body": "국가별 배송비와 부가 비용을 반영합니다."
+            },
+            {
+              "title": "정산 데이터",
+              "body": "실제 정산 기준으로 예상 수익을 보정합니다."
+            }
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "마진 확인 단계",
+          "items": [
+            {
+              "title": "매입가 입력",
+              "body": "상품 또는 SKU 단위로 매입가를 입력합니다.",
+              "bullets": ["상품 검색", "SKU 선택", "매입가 저장"]
+            },
+            {
+              "title": "비용 항목 확인",
+              "body": "배송비, 수수료, 기타 비용이 예상 마진에 반영되었는지 확인합니다.",
+              "bullets": ["국가별 비용 확인", "수수료 확인", "누락 비용 점검"]
+            },
+            {
+              "title": "손실 위험 상품 분류",
+              "body": "마진율이 낮거나 손실인 상품을 필터링해 가격 조정 또는 판매 중단 여부를 판단합니다.",
+              "bullets": ["손실 상품 필터", "마진율 정렬", "조정 대상 기록"]
+            }
+          ]
+        },
+        {
+          "type": "faq",
+          "title": "마진 분석 FAQ",
+          "items": [
+            {
+              "question": "매입가를 나중에 입력해도 이전 주문에 반영되나요?",
+              "answer": "운영 정책에 따라 다를 수 있지만, 가이드에서는 주문 시점 기준 비용을 남기는 방식을 권장합니다."
+            },
+            {
+              "question": "정산 데이터와 예상 마진이 다르면 어떻게 하나요?",
+              "answer": "수수료, 프로모션, 배송비 보정 항목을 먼저 확인하고 차이가 반복되는 항목은 별도 비용 규칙으로 관리합니다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
