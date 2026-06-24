@@ -109,6 +109,7 @@ const blockTypeLabels: Record<GuideBlockType, string> = {
 async function adminFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(path, {
     ...init,
+    credentials: "same-origin",
     headers: {
       "content-type": "application/json",
       ...(init?.headers ?? {}),
@@ -190,11 +191,10 @@ export function AdminContentManager() {
   const [faqForm, setFaqForm] = useState<FaqForm>(emptyFaq);
   const [guideForm, setGuideForm] = useState<GuideForm>(() => ({ ...emptyGuide, blocks: cloneBlocks(emptyGuide.blocks) }));
   const [loginForm, setLoginForm] = useState({ username: "", password: "" });
-  const [setupForm, setSetupForm] = useState({ setupKey: "", username: "", password: "", displayName: "" });
-  const [userForm, setUserForm] = useState<{ id?: string; username: string; password: string; displayName: string; isActive: boolean }>({
+  const [setupForm, setSetupForm] = useState({ setupKey: "", username: "", password: "" });
+  const [userForm, setUserForm] = useState<{ id?: string; username: string; password: string; isActive: boolean }>({
     username: "",
     password: "",
-    displayName: "",
     isActive: true,
   });
   const [isCheckingSession, setIsCheckingSession] = useState(true);
@@ -257,7 +257,7 @@ export function AdminContentManager() {
       });
       setSessionUser(payload.user);
       setNeedsSetup(false);
-      setSetupForm({ setupKey: "", username: "", password: "", displayName: "" });
+      setSetupForm({ setupKey: "", username: "", password: "" });
       setMessage("첫 관리자 계정을 생성했습니다.");
       await loadContent();
     } catch (error) {
@@ -388,7 +388,7 @@ export function AdminContentManager() {
         await adminFetch("/api/admin/users", { method: "POST", body });
         setMessage("관리자 계정을 추가했습니다.");
       }
-      setUserForm({ username: "", password: "", displayName: "", isActive: true });
+      setUserForm({ username: "", password: "", isActive: true });
       await loadContent();
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "관리자 계정 저장에 실패했습니다.");
@@ -402,7 +402,7 @@ export function AdminContentManager() {
     setIsLoading(true);
     try {
       await adminFetch(`/api/admin/users/${userForm.id}`, { method: "DELETE" });
-      setUserForm({ username: "", password: "", displayName: "", isActive: true });
+      setUserForm({ username: "", password: "", isActive: true });
       setMessage("관리자 계정을 삭제했습니다.");
       await loadContent();
     } catch (error) {
@@ -470,20 +470,25 @@ export function AdminContentManager() {
           <form onSubmit={setupFirstAdmin} className="rounded-lg border border-border bg-white p-6 shadow-sm">
             <AdminTextField label="설치 키" value={setupForm.setupKey} type="password" onChange={(setupKey) => setSetupForm((form) => ({ ...form, setupKey }))} required />
             <AdminTextField label="아이디" value={setupForm.username} onChange={(username) => setSetupForm((form) => ({ ...form, username }))} required />
-            <AdminTextField label="이름" value={setupForm.displayName} onChange={(displayName) => setSetupForm((form) => ({ ...form, displayName }))} />
             <AdminTextField label="비밀번호" value={setupForm.password} type="password" onChange={(password) => setSetupForm((form) => ({ ...form, password }))} required />
+            <p className="mt-4 rounded-md border border-primary/15 bg-primary-soft/50 p-3 text-xs font-semibold leading-5 text-primary-dark" aria-live="polite">
+              {message}
+            </p>
             <button type="submit" disabled={isLoading} className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-3 text-sm font-black text-white hover:bg-primary-dark disabled:opacity-50">
               <UserPlus className="h-4 w-4" />
-              첫 관리자 생성
+              {isLoading ? "생성 중..." : "첫 관리자 생성"}
             </button>
           </form>
         ) : (
           <form onSubmit={login} className="rounded-lg border border-border bg-white p-6 shadow-sm">
             <AdminTextField label="아이디" value={loginForm.username} onChange={(username) => setLoginForm((form) => ({ ...form, username }))} required />
             <AdminTextField label="비밀번호" value={loginForm.password} type="password" onChange={(password) => setLoginForm((form) => ({ ...form, password }))} required />
+            <p className="mt-4 rounded-md border border-primary/15 bg-primary-soft/50 p-3 text-xs font-semibold leading-5 text-primary-dark" aria-live="polite">
+              {message}
+            </p>
             <button type="submit" disabled={isLoading} className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-3 text-sm font-black text-white hover:bg-primary-dark disabled:opacity-50">
               <ShieldCheck className="h-4 w-4" />
-              로그인
+              {isLoading ? "로그인 중..." : "로그인"}
             </button>
           </form>
         )}
@@ -682,7 +687,7 @@ export function AdminContentManager() {
               <h2 className="text-xl font-black text-slate-950">관리자 목록</h2>
               <button
                 type="button"
-                onClick={() => setUserForm({ username: "", password: "", displayName: "", isActive: true })}
+                onClick={() => setUserForm({ username: "", password: "", isActive: true })}
                 className="inline-flex items-center gap-1 rounded-md border border-border px-3 py-2 text-xs font-black text-slate-700 hover:border-primary/40 hover:text-primary"
               >
                 <Plus className="h-4 w-4" />
@@ -694,12 +699,12 @@ export function AdminContentManager() {
                 <button
                   key={user.id}
                   type="button"
-                  onClick={() => setUserForm({ id: user.id, username: user.username, password: "", displayName: user.displayName, isActive: user.isActive })}
+                  onClick={() => setUserForm({ id: user.id, username: user.username, password: "", isActive: user.isActive })}
                   className={`w-full rounded-md border p-4 text-left transition ${
                     userForm.id === user.id ? "border-primary bg-primary-soft/60" : "border-border bg-white hover:border-primary/30"
                   }`}
                 >
-                  <p className="text-sm font-black text-slate-950">{user.displayName}</p>
+                  <p className="text-sm font-black text-slate-950">@{user.username}</p>
                   <p className="mt-1 text-xs font-semibold text-slate-500">@{user.username}</p>
                   <p className="mt-3 text-xs font-black text-slate-400">{user.isActive ? "활성" : "비활성"} · 세션 버전 {user.sessionVersion}</p>
                 </button>
@@ -710,7 +715,6 @@ export function AdminContentManager() {
           <form onSubmit={submitAdminUser} className="rounded-lg border border-border bg-white p-5 shadow-sm">
             <h2 className="text-xl font-black text-slate-950">{isEditingUser ? "관리자 수정" : "관리자 추가"}</h2>
             <AdminTextField label="아이디" value={userForm.username} onChange={(username) => setUserForm((form) => ({ ...form, username }))} required />
-            <AdminTextField label="이름" value={userForm.displayName} onChange={(displayName) => setUserForm((form) => ({ ...form, displayName }))} />
             <AdminTextField
               label={isEditingUser ? "새 비밀번호, 변경할 때만 입력" : "비밀번호"}
               value={userForm.password}
