@@ -35,6 +35,30 @@ This means the final domain cutover will most likely be done in Cloudflare DNS.
 
 ## Vercel Deployment Path
 
+Completed on 2026-06-24 KST:
+
+- GitHub repository: `rosie-yoon/unisorder`
+- Site branch: `codex/unisorder-site`
+- Vercel project: `rosie-yoons-projects/unisorder`
+- Production URL: `https://unisorder.vercel.app`
+- Deployment URL: `https://unisorder-6z2n1f8bz-rosie-yoons-projects.vercel.app`
+- Production environment variable added:
+  - `UNISORDER_ADMIN_TOKEN`
+
+Notes:
+
+- The GitHub repository's `main` branch currently contains an older FastAPI/Streamlit scaffold.
+- The renewed Next.js site was pushed to `codex/unisorder-site` to avoid overwriting the existing `main` branch.
+- The current Vercel production deployment was created from the local renewed Next.js site.
+
+Reference build settings:
+
+1. Framework: Next.js
+2. Build command: `npm run build`
+3. Output: Next.js default
+
+If reconnecting from scratch:
+
 1. Push this project to GitHub.
 2. Import the repository in Vercel.
 3. Configure build settings.
@@ -57,15 +81,17 @@ This means the final domain cutover will most likely be done in Cloudflare DNS.
 
 In Vercel:
 
-1. Add `unisorder.com`.
-2. Add `www.unisorder.com`.
+1. Add `unisorder.com`. Completed.
+2. Add `www.unisorder.com`. Completed.
 3. Vercel will show the required DNS records.
 
 In Cloudflare DNS:
 
 1. Replace current root domain DNS target with the Vercel-provided record.
-   - Usually root/apex uses an A record or CNAME flattening depending on Vercel instructions.
-2. Set `www` to the Vercel-provided CNAME.
+   - `A unisorder.com 76.76.21.21`
+2. Set `www` to the Vercel-provided record.
+   - Vercel CLI currently recommends: `A www.unisorder.com 76.76.21.21`
+   - If Cloudflare UI prefers a CNAME for `www`, use Vercel's dashboard recommendation at the moment of configuration.
 3. Keep Cloudflare SSL/TLS mode at `Full` or `Full (strict)` after Vercel certificate is active.
 4. Wait for DNS propagation.
 
