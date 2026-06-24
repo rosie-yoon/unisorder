@@ -62,6 +62,9 @@ export type FaqInput = Omit<FaqItem, "id"> & { id?: string };
 export type GuideInput = Omit<GuideRecord, "id"> & { id?: string };
 
 const contentFilePath = () => path.join(process.cwd(), "data", "content.json");
+const supabaseUrl = () => process.env.SUPABASE_URL?.replace(/\/$/, "");
+const supabaseServiceRoleKey = () => process.env.SUPABASE_SERVICE_ROLE_KEY;
+const hasSupabaseConfig = () => Boolean(supabaseUrl() && supabaseServiceRoleKey());
 
 const sortByOrder = <T extends { sortOrder: number }>(items: T[]) =>
   [...items].sort((a, b) => a.sortOrder - b.sortOrder);
@@ -109,6 +112,28 @@ function normalizeFaq(input: Partial<FaqInput>, fallbackId?: string): FaqItem {
     isPublished: ensureBoolean(input.isPublished, true),
     showOnHome: ensureBoolean(input.showOnHome, false),
   };
+}
+
+function toSupabaseFaq(faq: FaqItem) {
+  return {
+    id: faq.id,
+    question: faq.question,
+    answer: faq.answer,
+    sort_order: faq.sortOrder,
+    is_published: faq.isPublished,
+    show_on_home: faq.showOnHome,
+  };
+}
+
+function fromSupabaseFaq(row: Record<string, unknown>): FaqItem {
+  return normalizeFaq({
+    id: String(row.id),
+    question: String(row.question),
+    answer: String(row.answer),
+    sortOrder: ensureNumber(row.sort_order),
+    isPublished: ensureBoolean(row.is_published, true),
+    showOnHome: ensureBoolean(row.show_on_home, false),
+  });
 }
 
 export function normalizeGuideBlocks(value: unknown): GuideBlock[] {
@@ -217,6 +242,66 @@ function normalizeGuide(input: Partial<GuideInput>, fallbackId?: string): GuideR
   };
 }
 
+function toSupabaseGuide(guide: GuideRecord) {
+  return {
+    id: guide.id,
+    slug: guide.slug,
+    title: guide.title,
+    category: guide.category,
+    description: guide.description,
+    duration: guide.duration,
+    icon_name: guide.iconName,
+    sort_order: guide.sortOrder,
+    is_published: guide.isPublished,
+    video_url: guide.videoUrl ?? null,
+    blocks: guide.blocks,
+  };
+}
+
+function fromSupabaseGuide(row: Record<string, unknown>): GuideRecord {
+  return normalizeGuide({
+    id: String(row.id),
+    slug: String(row.slug),
+    title: String(row.title),
+    category: String(row.category),
+    description: String(row.description),
+    duration: String(row.duration),
+    iconName: String(row.icon_name ?? "file"),
+    sortOrder: ensureNumber(row.sort_order),
+    isPublished: ensureBoolean(row.is_published, true),
+    videoUrl: typeof row.video_url === "string" ? row.video_url : undefined,
+    blocks: normalizeGuideBlocks(row.blocks),
+  });
+}
+
+async function supabaseRequest<T>(pathName: string, init?: RequestInit): Promise<T> {
+  const baseUrl = supabaseUrl();
+  const serviceRoleKey = supabaseServiceRoleKey();
+  if (!baseUrl || !serviceRoleKey) {
+    throw new Error("Supabase 환경변수가 설정되지 않았습니다.");
+  }
+
+  const response = await fetch(`${baseUrl}/rest/v1/${pathName}`, {
+    ...init,
+    headers: {
+      apikey: serviceRoleKey,
+      authorization: `Bearer ${serviceRoleKey}`,
+      "content-type": "application/json",
+      prefer: "return=representation",
+      ...(init?.headers ?? {}),
+    },
+  });
+
+  const text = await response.text();
+  const payload = text ? JSON.parse(text) : null;
+  if (!response.ok) {
+    const message = isRecord(payload) && typeof payload.message === "string" ? payload.message : "Supabase 요청에 실패했습니다.";
+    throw new Error(message);
+  }
+
+  return payload as T;
+}
+
 async function readRawContent(): Promise<ContentData> {
   const filePath = contentFilePath();
   const raw = await readFile(filePath, "utf8");
@@ -244,6 +329,18 @@ async function mutateContent(mutator: (data: ContentData) => ContentData | Promi
 }
 
 export async function getContent() {
+  if (hasSupabaseConfig()) {
+    const [faqRows, guideRows] = await Promise.all([
+      supabaseRequest<Record<string, unknown>[]>("faqs?select=*&order=sort_order.asc"),
+      supabaseRequest<Record<string, unknown>[]>("guides?select=*&order=sort_order.asc"),
+    ]);
+
+    return {
+      faqs: faqRows.map(fromSupabaseFaq),
+      guides: guideRows.map(fromSupabaseGuide),
+    };
+  }
+
   const content = await readRawContent();
   return {
     faqs: sortByOrder(content.faqs),
@@ -262,11 +359,33 @@ export async function getFaqs(options?: { publishedOnly?: boolean; homeOnly?: bo
 
 export async function createFaq(input: Partial<FaqInput>) {
   const faq = normalizeFaq(input);
+  if (hasSupabaseConfig()) {
+    const [created] = await supabaseRequest<Record<string, unknown>[]>("faqs", {
+      method: "POST",
+      body: JSON.stringify(toSupabaseFaq(faq)),
+    });
+    return fromSupabaseFaq(created);
+  }
+
   await mutateContent((content) => ({ ...content, faqs: sortByOrder([...content.faqs, faq]) }));
   return faq;
 }
 
 export async function updateFaq(id: string, input: Partial<FaqInput>) {
+  if (hasSupabaseConfig()) {
+    const current = await supabaseRequest<Record<string, unknown>[]>(
+      `faqs?select=*&id=eq.${encodeURIComponent(id)}&limit=1`,
+    );
+    if (!current[0]) throw new Error("수정할 FAQ를 찾을 수 없습니다.");
+
+    const updatedFaq = normalizeFaq({ ...fromSupabaseFaq(current[0]), ...input, id }, id);
+    const [updated] = await supabaseRequest<Record<string, unknown>[]>(`faqs?id=eq.${encodeURIComponent(id)}`, {
+      method: "PATCH",
+      body: JSON.stringify(toSupabaseFaq(updatedFaq)),
+    });
+    return fromSupabaseFaq(updated);
+  }
+
   let updated: FaqItem | undefined;
   await mutateContent((content) => ({
     ...content,
@@ -284,6 +403,14 @@ export async function updateFaq(id: string, input: Partial<FaqInput>) {
 }
 
 export async function deleteFaq(id: string) {
+  if (hasSupabaseConfig()) {
+    const deleted = await supabaseRequest<Record<string, unknown>[]>(`faqs?id=eq.${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    });
+    if (deleted.length === 0) throw new Error("삭제할 FAQ를 찾을 수 없습니다.");
+    return;
+  }
+
   let removed = false;
   await mutateContent((content) => {
     const nextFaqs = content.faqs.filter((faq) => faq.id !== id);
@@ -306,6 +433,14 @@ export async function getGuideBySlug(slug: string, options?: { publishedOnly?: b
 
 export async function createGuide(input: Partial<GuideInput>) {
   const guide = normalizeGuide(input);
+  if (hasSupabaseConfig()) {
+    const [created] = await supabaseRequest<Record<string, unknown>[]>("guides", {
+      method: "POST",
+      body: JSON.stringify(toSupabaseGuide(guide)),
+    });
+    return fromSupabaseGuide(created);
+  }
+
   await mutateContent((content) => {
     if (content.guides.some((item) => item.slug === guide.slug)) {
       throw new Error("이미 사용 중인 가이드 주소입니다.");
@@ -316,6 +451,20 @@ export async function createGuide(input: Partial<GuideInput>) {
 }
 
 export async function updateGuide(id: string, input: Partial<GuideInput>) {
+  if (hasSupabaseConfig()) {
+    const current = await supabaseRequest<Record<string, unknown>[]>(
+      `guides?select=*&id=eq.${encodeURIComponent(id)}&limit=1`,
+    );
+    if (!current[0]) throw new Error("수정할 가이드를 찾을 수 없습니다.");
+
+    const updatedGuide = normalizeGuide({ ...fromSupabaseGuide(current[0]), ...input, id }, id);
+    const [updated] = await supabaseRequest<Record<string, unknown>[]>(`guides?id=eq.${encodeURIComponent(id)}`, {
+      method: "PATCH",
+      body: JSON.stringify(toSupabaseGuide(updatedGuide)),
+    });
+    return fromSupabaseGuide(updated);
+  }
+
   let updated: GuideRecord | undefined;
   await mutateContent((content) => {
     const existing = content.guides.find((guide) => guide.id === id);
@@ -337,6 +486,14 @@ export async function updateGuide(id: string, input: Partial<GuideInput>) {
 }
 
 export async function deleteGuide(id: string) {
+  if (hasSupabaseConfig()) {
+    const deleted = await supabaseRequest<Record<string, unknown>[]>(`guides?id=eq.${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    });
+    if (deleted.length === 0) throw new Error("삭제할 가이드를 찾을 수 없습니다.");
+    return;
+  }
+
   let removed = false;
   await mutateContent((content) => {
     const nextGuides = content.guides.filter((guide) => guide.id !== id);
