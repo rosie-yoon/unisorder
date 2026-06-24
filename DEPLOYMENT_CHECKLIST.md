@@ -20,14 +20,15 @@ This means the final domain cutover will most likely be done in Cloudflare DNS.
    - Recommended for this Next.js app: Vercel.
    - Alternative: a Node server/VPS using `npm run build` and `npm run start`.
 
-2. Set required production environment variable.
-   - `UNISORDER_ADMIN_TOKEN`
-   - Use a long random token. Do not reuse `dev-admin`.
+2. Set required production environment variables.
+   - `UNISORDER_ADMIN_SETUP_KEY`
+   - `UNISORDER_ADMIN_SESSION_SECRET`
+   - Use long random values. The setup key is only for creating the first admin account.
 
 3. Confirm admin persistence strategy.
-   - Current implementation stores FAQ and guide content in `data/content.json`.
-   - This is fine for local/single-server testing.
-   - For Vercel/serverless production, move this storage layer to Supabase/Postgres before serious operation because serverless file writes are not durable.
+   - Production FAQ, guide, and admin account data is stored in Supabase.
+   - Local/offline content falls back to `data/content.json`.
+   - Local admin account fallback uses `data/admin-users.json`, which is gitignored.
 
 4. Run local verification.
    - `npm run build`
@@ -43,7 +44,8 @@ Completed on 2026-06-24 KST:
 - Production URL: `https://unisorder.vercel.app`
 - Deployment URL: `https://unisorder-6z2n1f8bz-rosie-yoons-projects.vercel.app`
 - Production environment variable added:
-  - `UNISORDER_ADMIN_TOKEN`
+  - `UNISORDER_ADMIN_SETUP_KEY`
+  - `UNISORDER_ADMIN_SESSION_SECRET`
   - `SUPABASE_URL`
   - `SUPABASE_SERVICE_ROLE_KEY`
 - Supabase project: `unisorder-site`
@@ -71,8 +73,11 @@ If reconnecting from scratch:
    - Framework: Next.js
    - Build command: `npm run build`
    - Output: Next.js default
-4. Add environment variable.
-   - `UNISORDER_ADMIN_TOKEN=<long-random-token>`
+4. Add environment variables.
+   - `UNISORDER_ADMIN_SETUP_KEY=<long-random-setup-key>`
+   - `UNISORDER_ADMIN_SESSION_SECRET=<long-random-session-secret>`
+   - `SUPABASE_URL=<supabase-project-url>`
+   - `SUPABASE_SERVICE_ROLE_KEY=<supabase-service-role-key>`
 5. Deploy preview.
 6. Verify preview URLs.
    - `/`
@@ -117,9 +122,10 @@ In Cloudflare DNS:
    - `/terms`
 7. Verify admin.
    - `/admin`
-   - Token login/load data
+   - First admin setup or admin login
    - FAQ create/update/delete
    - Guide create/update/delete
+   - Admin account create/update/delete
 8. Check mobile view.
    - Header menu
    - Hero
@@ -135,6 +141,7 @@ Completed on 2026-06-24 KST:
 1. Created Supabase project `unisorder-site`.
 2. Applied database migration:
    - `supabase/migrations/20260624054500_create_content_tables.sql`
+   - `supabase/migrations/20260624093000_create_admin_users.sql`
 3. Seeded initial content:
    - 6 FAQs
    - 4 guides
@@ -144,11 +151,12 @@ Completed on 2026-06-24 KST:
 5. Verified production CRUD through `https://unisorder.vercel.app`:
    - FAQ create/update/delete
    - Guide create/update/delete
+   - Admin account create/update/delete
 
 ## Immediate Next Engineering Task
 
-The content store has been moved to Supabase. Next engineering improvements:
+The content store and admin login foundation have been moved to Supabase. Next engineering improvements:
 
-1. Replace the raw JSON editor for guide blocks with structured admin controls.
-2. Add admin login/session UX instead of token entry.
-3. Decide whether to merge `codex/unisorder-site` into GitHub `main` or change Vercel production branch to `codex/unisorder-site`.
+1. Add scammer report submission and moderation workflow.
+2. Move admin to a private deployment/domain when the final URL is chosen.
+3. Ask the existing developer to complete the Cloudflare DNS cutover for `unisorder.com`.

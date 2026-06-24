@@ -17,7 +17,7 @@ function revalidateFaqPages() {
 }
 
 export async function PUT(request: NextRequest, context: RouteContext) {
-  const auth = assertAdmin(request);
+  const auth = await assertAdmin(request);
   if (!auth.ok) return errorResponse(new Error(auth.message), auth.status);
 
   try {
@@ -31,7 +31,7 @@ export async function PUT(request: NextRequest, context: RouteContext) {
 }
 
 export async function DELETE(request: NextRequest, context: RouteContext) {
-  const auth = assertAdmin(request);
+  const auth = await assertAdmin(request);
   if (!auth.ok) return errorResponse(new Error(auth.message), auth.status);
 
   try {

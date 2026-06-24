@@ -13,7 +13,7 @@ function revalidateFaqPages() {
 }
 
 export async function GET(request: NextRequest) {
-  const auth = assertAdmin(request);
+  const auth = await assertAdmin(request);
   if (!auth.ok) return errorResponse(new Error(auth.message), auth.status);
 
   const faqs = await getFaqs();
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const auth = assertAdmin(request);
+  const auth = await assertAdmin(request);
   if (!auth.ok) return errorResponse(new Error(auth.message), auth.status);
 
   try {

@@ -1,13 +1,16 @@
 import { spawn } from "node:child_process";
-import { copyFile, mkdtemp, readFile, rm } from "node:fs/promises";
+import { copyFile, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
 const rootDir = process.cwd();
 const contentPath = path.join(rootDir, "data", "content.json");
-const token = "test-admin-token";
+const adminUsersPath = path.join(rootDir, "data", "admin-users.json");
+const setupKey = "test-admin-setup-key";
+const credentials = { username: "qa-admin", password: "qa-admin-password", displayName: "QA Admin" };
 const port = process.env.ADMIN_CRUD_TEST_PORT || "3025";
 const baseUrl = `http://127.0.0.1:${port}`;
+let sessionCookie = "";
 
 function assert(condition, message) {
   if (!condition) {
@@ -20,10 +23,13 @@ async function request(pathname, options = {}) {
     ...options,
     headers: {
       "content-type": "application/json",
-      ...(options.token === false ? {} : { "x-admin-token": token }),
+      ...(options.auth === false || !sessionCookie ? {} : { cookie: sessionCookie }),
       ...(options.headers || {}),
     },
   });
+
+  const cookie = response.headers.get("set-cookie");
+  if (cookie) sessionCookie = cookie.split(";")[0];
 
   const text = await response.text();
   const body = text ? JSON.parse(text) : {};
@@ -51,13 +57,23 @@ async function waitForServer(processRef) {
 async function run() {
   const tempDir = await mkdtemp(path.join(tmpdir(), "unisorder-admin-test-"));
   const backupPath = path.join(tempDir, "content.backup.json");
+  const adminUsersBackupPath = path.join(tempDir, "admin-users.backup.json");
   await copyFile(contentPath, backupPath);
+  try {
+    await copyFile(adminUsersPath, adminUsersBackupPath);
+  } catch {
+    await writeFile(adminUsersBackupPath, JSON.stringify({ users: [] }), "utf8");
+  }
+  await writeFile(adminUsersPath, JSON.stringify({ users: [] }, null, 2), "utf8");
 
   const server = spawn("npm", ["run", "start", "--", "-p", port], {
     cwd: rootDir,
     env: {
       ...process.env,
-      UNISORDER_ADMIN_TOKEN: token,
+      SUPABASE_URL: "",
+      SUPABASE_SERVICE_ROLE_KEY: "",
+      UNISORDER_ADMIN_SETUP_KEY: setupKey,
+      UNISORDER_ADMIN_SESSION_SECRET: "test-admin-session-secret",
       PORT: port,
     },
     stdio: ["ignore", "pipe", "pipe"],
@@ -70,8 +86,45 @@ async function run() {
   try {
     await waitForServer(server);
 
-    const unauthorized = await request("/api/admin/faqs", { token: false });
+    const unauthorized = await request("/api/admin/faqs", { auth: false });
     assert(unauthorized.response.status === 401, "인증 없는 FAQ 조회가 차단되어야 합니다.");
+
+    const setup = await request("/api/admin/setup", {
+      method: "POST",
+      auth: false,
+      body: JSON.stringify({ setupKey, ...credentials }),
+    });
+    assert(setup.response.status === 201, "첫 관리자 생성 API가 201을 반환해야 합니다.");
+    assert(setup.body.user?.username === credentials.username, "첫 관리자 아이디가 응답되어야 합니다.");
+    assert(sessionCookie.includes("unisorder_admin_session="), "로그인 세션 쿠키가 설정되어야 합니다.");
+
+    const session = await request("/api/admin/session");
+    assert(session.body.authenticated === true, "세션 조회가 로그인 상태를 반환해야 합니다.");
+
+    const createdUser = await request("/api/admin/users", {
+      method: "POST",
+      body: JSON.stringify({
+        username: "qa-sub-admin",
+        password: "qa-sub-admin-password",
+        displayName: "QA Sub Admin",
+      }),
+    });
+    assert(createdUser.response.status === 201, "관리자 계정 등록 API가 201을 반환해야 합니다.");
+    assert(createdUser.body.user?.username === "qa-sub-admin", "관리자 계정 등록 응답에 아이디가 있어야 합니다.");
+
+    const updatedUser = await request(`/api/admin/users/${createdUser.body.user.id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        username: "qa-sub-admin",
+        displayName: "QA Sub Admin Updated",
+        isActive: true,
+      }),
+    });
+    assert(updatedUser.response.status === 200, "관리자 계정 수정 API가 200을 반환해야 합니다.");
+    assert(updatedUser.body.user.displayName === "QA Sub Admin Updated", "관리자 이름이 수정되어야 합니다.");
+
+    const deletedUser = await request(`/api/admin/users/${createdUser.body.user.id}`, { method: "DELETE" });
+    assert(deletedUser.response.status === 200, "관리자 계정 삭제 API가 200을 반환해야 합니다.");
 
     const createdFaq = await request("/api/admin/faqs", {
       method: "POST",
@@ -173,6 +226,7 @@ async function run() {
     server.kill("SIGTERM");
     await new Promise((resolve) => setTimeout(resolve, 500));
     await copyFile(backupPath, contentPath);
+    await copyFile(adminUsersBackupPath, adminUsersPath);
     await rm(tempDir, { recursive: true, force: true });
   }
 }
