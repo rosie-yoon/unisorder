@@ -205,13 +205,13 @@ export function FeatureShowcase() {
         </div>
 
         <div className="rounded-lg border border-primary/10 bg-[linear-gradient(180deg,#f8fffb_0%,#eef8f5_100%)] p-4 shadow-[0_24px_70px_rgba(15,23,42,0.08)] md:p-8">
-          <div className="relative overflow-hidden rounded-lg border border-white bg-white shadow-[0_18px_50px_rgba(15,23,42,0.10)]">
+          <div className="relative aspect-[1252/1269] overflow-hidden rounded-lg border border-white bg-white shadow-[0_18px_50px_rgba(15,23,42,0.10)]">
             <Image
               src={active.imageSrc}
               alt={`${active.label} 기능 화면 예시`}
-              width={active.imageWidth}
-              height={active.imageHeight}
-              className="h-auto w-full object-contain"
+              fill
+              sizes="(min-width: 1024px) 47vw, 100vw"
+              className="object-contain"
             />
           </div>
         </div>
