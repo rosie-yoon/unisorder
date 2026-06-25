@@ -132,8 +132,12 @@ export function GrowthStories() {
                           <p className="mt-1 text-xl font-black leading-tight text-slate-950">{story.nickname}</p>
                         </div>
                       </div>
-                      <blockquote className="mt-6 flex min-h-[128px] items-center rounded-lg bg-slate-50 px-5 py-4 text-lg font-black leading-8 text-slate-950 md:min-h-[120px]">
-                        “{story.quote}”
+                      <blockquote className="relative mt-6 flex min-h-[76px] items-center overflow-x-auto rounded-[1.15rem] border border-primary/10 bg-primary-soft/70 px-5 py-4 text-[13px] font-black leading-7 text-slate-950 shadow-[0_10px_26px_rgba(7,138,99,0.06)] [scrollbar-width:none] sm:text-sm md:min-h-[82px] md:text-[15px] [&::-webkit-scrollbar]:hidden">
+                        <span className="whitespace-nowrap">“{story.quote}”</span>
+                        <span
+                          className="absolute -bottom-2 left-9 h-4 w-4 rotate-45 border-b border-r border-primary/10 bg-primary-soft"
+                          aria-hidden="true"
+                        />
                       </blockquote>
                       <h3 className="mt-6 min-h-[116px] text-2xl font-black leading-tight tracking-tight text-slate-950 md:min-h-[108px] md:text-3xl">
                         {story.title}
