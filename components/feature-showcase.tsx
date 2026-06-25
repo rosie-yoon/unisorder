@@ -36,6 +36,9 @@ const featureTabs = [
     ),
     tabActive: "border-sky-300 bg-sky-50 text-sky-700 shadow-[0_10px_24px_rgba(14,165,233,0.14)]",
     iconTone: "text-sky-600",
+    imageSrc: "/product/unisorder-dashboard.png",
+    imageWidth: 1252,
+    imageHeight: 1269,
     bullets: [
       { text: "Shopee·Lazada 통합 현황 조회", icon: Globe2, tone: "bg-sky-50 text-sky-600 ring-sky-100" },
       { text: "발송 대기·처리중·취소·반품 상태 확인", icon: RefreshCw, tone: "bg-emerald-50 text-emerald-600 ring-emerald-100" },
@@ -49,6 +52,9 @@ const featureTabs = [
     description: "상품 확인, SKU 매칭, 송장 출력처럼 반복 업무를 한 화면에서 이어갑니다.",
     tabActive: "border-emerald-300 bg-emerald-50 text-emerald-700 shadow-[0_10px_24px_rgba(16,185,129,0.14)]",
     iconTone: "text-emerald-600",
+    imageSrc: "/product/features/order-processing.png",
+    imageWidth: 1252,
+    imageHeight: 1269,
     bullets: [
       { text: "실시간 주문 수집과 상태 동기화", icon: RefreshCw, tone: "bg-emerald-50 text-emerald-600 ring-emerald-100" },
       { text: "상품·옵션 기준 주문 확인", icon: PackageCheck, tone: "bg-sky-50 text-sky-600 ring-sky-100" },
@@ -74,6 +80,9 @@ const featureTabs = [
     ),
     tabActive: "border-violet-300 bg-violet-50 text-violet-700 shadow-[0_10px_24px_rgba(139,92,246,0.14)]",
     iconTone: "text-violet-600",
+    imageSrc: "/product/features/korean-invoice.png",
+    imageWidth: 1252,
+    imageHeight: 1269,
     bullets: [
       { text: "한글 송장 출력", icon: FileText, tone: "bg-violet-50 text-violet-600 ring-violet-100" },
       { text: "상품명·옵션 확인 시간 단축", icon: RefreshCw, tone: "bg-sky-50 text-sky-600 ring-sky-100" },
@@ -87,6 +96,9 @@ const featureTabs = [
     description: "SKU 기준으로 주문과 재고 흐름을 연결해 반복 발주와 입고 현황을 점검하여 효율화를 높입니다.",
     tabActive: "border-amber-300 bg-amber-50 text-amber-700 shadow-[0_10px_24px_rgba(245,158,11,0.14)]",
     iconTone: "text-amber-600",
+    imageSrc: "/product/features/inventory-purchase.png",
+    imageWidth: 1252,
+    imageHeight: 1269,
     bullets: [
       { text: "SKU 기반 재고 관리", icon: Boxes, tone: "bg-amber-50 text-amber-600 ring-amber-100" },
       { text: "재고 부족 상품 확인", icon: PackageCheck, tone: "bg-rose-50 text-rose-600 ring-rose-100" },
@@ -106,6 +118,9 @@ const featureTabs = [
     ),
     tabActive: "border-indigo-300 bg-indigo-50 text-indigo-700 shadow-[0_10px_24px_rgba(99,102,241,0.14)]",
     iconTone: "text-indigo-600",
+    imageSrc: "/product/features/margin-analysis.png",
+    imageWidth: 1252,
+    imageHeight: 1167,
     bullets: [
       { text: "상품별 마진 추적", icon: BarChart3, tone: "bg-indigo-50 text-indigo-600 ring-indigo-100" },
       { text: "환율·매입가 기준 수익 확인", icon: RefreshCw, tone: "bg-emerald-50 text-emerald-600 ring-emerald-100" },
@@ -131,6 +146,9 @@ const featureTabs = [
     ),
     tabActive: "border-rose-300 bg-rose-50 text-rose-700 shadow-[0_10px_24px_rgba(244,63,94,0.14)]",
     iconTone: "text-rose-600",
+    imageSrc: "/product/features/tax-report.png",
+    imageWidth: 1252,
+    imageHeight: 1167,
     bullets: [
       { text: "완료 주문내역 엑셀 파일 제공", icon: Download, tone: "bg-emerald-50 text-emerald-600 ring-emerald-100" },
       { text: "정산 내역 PDF 파일 제공", icon: FileText, tone: "bg-rose-50 text-rose-600 ring-rose-100" },
@@ -189,10 +207,10 @@ export function FeatureShowcase() {
         <div className="rounded-lg border border-primary/10 bg-[linear-gradient(180deg,#f8fffb_0%,#eef8f5_100%)] p-4 shadow-[0_24px_70px_rgba(15,23,42,0.08)] md:p-8">
           <div className="relative overflow-hidden rounded-lg border border-white bg-white shadow-[0_18px_50px_rgba(15,23,42,0.10)]">
             <Image
-              src="/product/unisorder-dashboard.png"
+              src={active.imageSrc}
               alt={`${active.label} 기능 화면 예시`}
-              width={1252}
-              height={1269}
+              width={active.imageWidth}
+              height={active.imageHeight}
               className="h-auto w-full object-contain"
             />
           </div>
