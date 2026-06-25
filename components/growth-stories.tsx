@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const stories = [
   {
@@ -41,10 +41,6 @@ export function GrowthStories() {
   const [isPaused, setIsPaused] = useState(false);
   const activeStory = stories[activeIndex];
 
-  const goToPrevious = () => {
-    setActiveIndex((current) => (current === 0 ? stories.length - 1 : current - 1));
-  };
-
   const goToNext = () => {
     setActiveIndex((current) => (current === stories.length - 1 ? 0 : current + 1));
   };
@@ -72,23 +68,6 @@ export function GrowthStories() {
         </p>
 
         <div className="mt-7 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-2 py-1.5 shadow-[0_8px_18px_rgba(15,23,42,0.06)]">
-          <button
-            type="button"
-            onClick={goToPrevious}
-            className="focus-ring inline-flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-primary-soft hover:text-primary-dark"
-            aria-label="이전 성장사례 보기"
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            onClick={goToNext}
-            className="focus-ring inline-flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-primary-soft hover:text-primary-dark"
-            aria-label="다음 성장사례 보기"
-          >
-            <ArrowRight className="h-4 w-4" />
-          </button>
-          <div className="mx-1 h-5 w-px bg-slate-200" aria-hidden="true" />
           <div className="flex items-center gap-1.5 px-1">
             {stories.map((story, index) => (
               <button
@@ -102,6 +81,14 @@ export function GrowthStories() {
               />
             ))}
           </div>
+          <button
+            type="button"
+            onClick={goToNext}
+            className="focus-ring inline-flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-primary-soft hover:text-primary-dark"
+            aria-label="다음 성장사례 보기"
+          >
+            <ArrowRight className="h-4 w-4" />
+          </button>
         </div>
       </div>
 
