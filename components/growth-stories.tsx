@@ -9,6 +9,7 @@ const stories = [
     seller: "6개국 12개샵 운영 셀러",
     nickname: "M 셀러님",
     quote: "샵이 늘어나면서 주문 확인보다 정리에 더 많은 시간이 들기 시작했어요.",
+    quoteLines: ["샵이 늘어나면서 주문 확인보다", "정리에 더 많은 시간이 들기 시작했어요."],
     before: "샵별로 주문을 따로 확인하고 재고를 수기로 맞추느라 반복 정리에 많은 시간이 쓰였습니다.",
     after: "통합 화면에서 주문과 재고를 함께 확인하면서 상품 확장과 판매 전략에 더 집중할 수 있었습니다.",
     avatar: "👩‍💻",
@@ -19,6 +20,7 @@ const stories = [
     seller: "4년차 장기 운영 셀러",
     nickname: "J 셀러님",
     quote: "사무실에 있지 않아도 주문 흐름을 놓치지 않는 게 가장 컸어요.",
+    quoteLines: ["사무실에 있지 않아도", "주문 흐름을 놓치지 않는 게 가장 컸어요."],
     before: "자리를 비우거나 여행 중일 때 발주 타이밍을 놓칠까 봐 개인 일정을 쉽게 잡기 어려웠습니다.",
     after: "외부에서도 주문 확인과 발주가 가능해져 장소에 얽매이지 않는 운영 구조를 만들 수 있었습니다.",
     avatar: "🧑‍💼",
@@ -29,6 +31,7 @@ const stories = [
     seller: "6개월차 투잡 셀러",
     nickname: "R 셀러님",
     quote: "주문이 늘어나는 건 좋은데, 혼자 감당할 수 있을지가 제일 걱정이었어요.",
+    quoteLines: ["주문이 늘어나는 건 좋은데,", "혼자 감당할 수 있을지가 제일 걱정이었어요."],
     before: "외국어 상품명 확인과 송장 준비에 퇴근 후 시간이 빠르게 사라져 혼자 감당하기 어렵게 느껴졌습니다.",
     after: "한글 송장으로 상품 확인 시간을 줄이고 발주 흐름을 단순화해, 추가 인력 없이 투잡 운영을 이어갈 수 있었습니다.",
     avatar: "🙋‍♀️",
@@ -119,14 +122,20 @@ export function GrowthStories() {
                           <p className="mt-1 text-xl font-black leading-tight text-slate-950">{story.nickname}</p>
                         </div>
                       </div>
-                      <blockquote className="relative mt-6 flex min-h-[76px] items-center overflow-x-auto rounded-[1.15rem] border border-primary/10 bg-primary-soft/70 px-5 py-4 text-[13px] font-black leading-7 text-slate-950 shadow-[0_10px_26px_rgba(7,138,99,0.06)] [scrollbar-width:none] sm:text-sm md:min-h-[82px] md:text-[15px] [&::-webkit-scrollbar]:hidden">
-                        <span className="whitespace-nowrap">“{story.quote}”</span>
-                        <span
-                          className="absolute -bottom-2 left-9 h-4 w-4 rotate-45 border-b border-r border-primary/10 bg-primary-soft"
-                          aria-hidden="true"
-                        />
+                      <blockquote className="relative mt-6 rounded-[1.35rem] rounded-bl-md bg-primary-soft px-6 py-6 text-xl font-black leading-snug text-slate-950 shadow-[0_8px_0_rgba(7,138,99,0.08)] md:px-7 md:py-7 md:text-2xl">
+                        <span className="sr-only">“{story.quote}”</span>
+                        <span className="break-keep" aria-hidden="true">
+                          {story.quoteLines.map((line, index) => (
+                            <span key={line} className="block">
+                              {index === 0 ? "“" : ""}
+                              {line}
+                              {index === story.quoteLines.length - 1 ? "”" : ""}
+                            </span>
+                          ))}
+                        </span>
+                        <span className="absolute -bottom-5 left-8 h-6 w-8 bg-primary-soft [clip-path:polygon(0_0,100%_0,0_100%)]" aria-hidden="true" />
                       </blockquote>
-                      <h3 className="mt-6 min-h-[116px] text-2xl font-black leading-tight tracking-tight text-slate-950 md:min-h-[108px] md:text-3xl">
+                      <h3 className="mt-7 min-h-[82px] text-lg font-black leading-snug text-slate-900 md:min-h-[82px] md:text-[22px]">
                         {story.title}
                       </h3>
                     </div>
