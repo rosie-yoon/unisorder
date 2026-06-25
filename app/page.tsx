@@ -296,7 +296,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section id="features" className="shell scroll-mt-20 py-16">
+      <section id="features" className="shell scroll-mt-20 pb-24 pt-16 md:pb-28">
         <div className="mb-8 text-center">
           <h2 className="bg-gradient-to-r from-[#056647] via-primary to-[#41d9a1] bg-clip-text text-3xl font-black text-transparent drop-shadow-[0_10px_24px_rgba(25,185,127,0.10)] md:text-4xl">
             글로벌 셀러들을 위한 올인원 솔루션
@@ -305,8 +305,10 @@ export default async function HomePage() {
         <FeatureShowcase />
       </section>
 
-      <section id="stories" className="shell scroll-mt-20 py-16">
-        <GrowthStories />
+      <section id="stories" className="mt-6 scroll-mt-20 border-y border-primary/10 bg-[linear-gradient(180deg,#f7fbf9_0%,#ffffff_52%,#f8fbfa_100%)] py-20 md:mt-8 md:py-24">
+        <div className="shell">
+          <GrowthStories />
+        </div>
       </section>
 
       <section id="pricing" className="scroll-mt-20 border-y border-border bg-slate-50 py-16">
