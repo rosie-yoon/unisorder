@@ -428,13 +428,42 @@ export async function deleteFaq(id: string) {
 }
 
 export async function getGuides(options?: { publishedOnly?: boolean }) {
-  const { guides } = await getContent();
+  if (hasSupabaseConfig()) {
+    const guideRows = await supabaseRequest<Record<string, unknown>[]>("guides?select=*&order=sort_order.asc");
+    const guides = guideRows.map(fromSupabaseGuide);
+    return guides.filter((guide) => (options?.publishedOnly ? guide.isPublished : true));
+  }
+
+  const content = await readRawContent();
+  const guides = sortByOrder(content.guides);
   return guides.filter((guide) => (options?.publishedOnly ? guide.isPublished : true));
 }
 
 export async function getGuideBySlug(slug: string, options?: { publishedOnly?: boolean }) {
+  if (hasSupabaseConfig()) {
+    const guideRows = await supabaseRequest<Record<string, unknown>[]>(
+      `guides?select=*&slug=eq.${encodeURIComponent(slug)}&limit=1`,
+    );
+    if (!guideRows[0]) return undefined;
+    const guide = fromSupabaseGuide(guideRows[0]);
+    if (options?.publishedOnly && !guide.isPublished) return undefined;
+    return guide;
+  }
+
   const guides = await getGuides(options);
   return guides.find((guide) => guide.slug === slug);
+}
+
+export async function getGuideById(id: string) {
+  if (hasSupabaseConfig()) {
+    const guideRows = await supabaseRequest<Record<string, unknown>[]>(
+      `guides?select=*&id=eq.${encodeURIComponent(id)}&limit=1`,
+    );
+    return guideRows[0] ? fromSupabaseGuide(guideRows[0]) : undefined;
+  }
+
+  const content = await readRawContent();
+  return content.guides.find((guide) => guide.id === id);
 }
 
 export async function createGuide(input: Partial<GuideInput>) {

@@ -10,6 +10,7 @@ function errorResponse(error: unknown, status = 400) {
 function revalidateGuidePages(slug?: string) {
   revalidatePath("/");
   revalidatePath("/guide");
+  revalidatePath("/guide/[slug]", "page");
   if (slug) revalidatePath(`/guide/${slug}`);
 }
 

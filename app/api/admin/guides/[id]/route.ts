@@ -1,7 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { assertAdmin } from "@/lib/admin-auth";
-import { deleteGuide, updateGuide } from "@/lib/content-store";
+import { deleteGuide, getGuideById, updateGuide } from "@/lib/content-store";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -14,6 +14,7 @@ function errorResponse(error: unknown, status = 400) {
 function revalidateGuidePages(slug?: string) {
   revalidatePath("/");
   revalidatePath("/guide");
+  revalidatePath("/guide/[slug]", "page");
   if (slug) revalidatePath(`/guide/${slug}`);
 }
 
@@ -23,7 +24,11 @@ export async function PUT(request: NextRequest, context: RouteContext) {
 
   try {
     const { id } = await context.params;
+    const previousGuide = await getGuideById(id);
     const guide = await updateGuide(id, await request.json());
+    if (previousGuide?.slug && previousGuide.slug !== guide.slug) {
+      revalidateGuidePages(previousGuide.slug);
+    }
     revalidateGuidePages(guide.slug);
     return NextResponse.json({ guide });
   } catch (error) {
@@ -37,8 +42,9 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
 
   try {
     const { id } = await context.params;
+    const previousGuide = await getGuideById(id);
     await deleteGuide(id);
-    revalidateGuidePages();
+    revalidateGuidePages(previousGuide?.slug);
     return NextResponse.json({ ok: true });
   } catch (error) {
     return errorResponse(error);

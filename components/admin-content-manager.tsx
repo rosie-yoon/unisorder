@@ -173,6 +173,50 @@ function linesToArray(value: string) {
     .filter(Boolean);
 }
 
+function imageFileToDataUrl(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    if (!file.type.startsWith("image/")) {
+      reject(new Error("이미지 파일만 업로드할 수 있습니다."));
+      return;
+    }
+
+    const image = new Image();
+    const objectUrl = URL.createObjectURL(file);
+
+    image.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+
+      const maxWidth = 1400;
+      const scale = Math.min(1, maxWidth / image.width);
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.round(image.width * scale));
+      canvas.height = Math.max(1, Math.round(image.height * scale));
+
+      const context = canvas.getContext("2d");
+      if (!context) {
+        reject(new Error("이미지를 처리하지 못했습니다."));
+        return;
+      }
+
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      const dataUrl = canvas.toDataURL("image/webp", 0.78);
+      if (dataUrl.length > 1_200_000) {
+        reject(new Error("이미지 용량이 큽니다. 캡처 영역을 줄이거나 압축한 이미지로 다시 업로드해주세요."));
+        return;
+      }
+
+      resolve(dataUrl);
+    };
+
+    image.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error("이미지를 읽지 못했습니다."));
+    };
+
+    image.src = objectUrl;
+  });
+}
+
 export function AdminContentManager() {
   const [sessionUser, setSessionUser] = useState<PublicAdminUser | null>(null);
   const [needsSetup, setNeedsSetup] = useState(false);
@@ -844,8 +888,63 @@ function BlockFields({
               <Input label="단계 제목" value={item.title} onChange={(title) => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, title } : step) } : current)} />
               <TextArea label="단계 설명" value={item.body} onChange={(body) => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, body } : step) } : current)} />
               <TextArea label="체크 항목, 한 줄에 하나씩" value={splitLines(item.bullets)} onChange={(value) => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, bullets: linesToArray(value) } : step) } : current)} />
+              <div className="rounded-md border border-primary/15 bg-primary-soft/40 p-3">
+                <label className="block text-sm font-black text-slate-700">
+                  이미지 업로드
+                  <input
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp"
+                    onChange={async (event) => {
+                      const file = event.target.files?.[0];
+                      event.target.value = "";
+                      if (!file) return;
+
+                      try {
+                        const imageSrc = await imageFileToDataUrl(file);
+                        onUpdate(index, (current) => current.type === "steps" ? {
+                          ...current,
+                          items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? {
+                            ...step,
+                            imageSrc,
+                            imageAlt: step.imageAlt || item.title,
+                            imageCaption: step.imageCaption || item.title,
+                          } : step),
+                        } : current);
+                      } catch (error) {
+                        window.alert(error instanceof Error ? error.message : "이미지 업로드에 실패했습니다.");
+                      }
+                    }}
+                    className="mt-2 block w-full rounded-md border border-border bg-white px-3 py-2 text-sm font-semibold text-slate-700 file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-xs file:font-black file:text-white"
+                  />
+                </label>
+                <p className="mt-2 text-xs font-semibold leading-5 text-slate-500">
+                  업로드한 이미지는 압축 후 가이드 데이터에 저장됩니다. 별도 이미지 호스팅은 사용하지 않습니다.
+                </p>
+                {item.imageSrc ? (
+                  <div className="mt-3 rounded-md border border-border bg-white p-2">
+                    <img src={item.imageSrc} alt={item.imageAlt || item.title} className="max-h-48 w-full rounded object-contain" />
+                    <button
+                      type="button"
+                      onClick={() => onUpdate(index, (current) => current.type === "steps" ? {
+                        ...current,
+                        items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, imageSrc: undefined } : step),
+                      } : current)}
+                      className="mt-2 inline-flex items-center gap-1 rounded-md border border-red-200 px-3 py-2 text-xs font-black text-red-600 hover:bg-red-50"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      이미지 제거
+                    </button>
+                  </div>
+                ) : null}
+              </div>
               <div className="grid gap-3 md:grid-cols-2">
-                <Input label="이미지 URL" value={item.imageSrc ?? ""} onChange={(imageSrc) => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, imageSrc: imageSrc || undefined } : step) } : current)} />
+                {item.imageSrc?.startsWith("data:") ? (
+                  <div className="mt-3 rounded-md border border-border bg-white px-3 py-2 text-sm font-bold leading-6 text-slate-600">
+                    업로드 이미지가 저장되어 있습니다.
+                  </div>
+                ) : (
+                  <Input label="이미지 URL" value={item.imageSrc ?? ""} onChange={(imageSrc) => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, imageSrc: imageSrc || undefined } : step) } : current)} />
+                )}
                 <Input label="이미지 대체 텍스트" value={item.imageAlt ?? ""} onChange={(imageAlt) => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, imageAlt: imageAlt || undefined } : step) } : current)} />
               </div>
               <Input label="이미지 캡션" value={item.imageCaption ?? ""} onChange={(imageCaption) => onUpdate(index, (current) => current.type === "steps" ? { ...current, items: current.items.map((step, stepIndex) => stepIndex === itemIndex ? { ...step, imageCaption: imageCaption || undefined } : step) } : current)} />
