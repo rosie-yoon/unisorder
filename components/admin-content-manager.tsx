@@ -602,7 +602,7 @@ export function AdminContentManager() {
                   }`}
                 >
                   <p className="text-sm font-black text-slate-950">{faq.question}</p>
-                  <p className="mt-2 line-clamp-2 text-xs font-semibold leading-5 text-slate-500">{faq.answer}</p>
+                  <p className="mt-2 line-clamp-2 whitespace-pre-line text-xs font-semibold leading-5 text-slate-500">{faq.answer}</p>
                   <p className="mt-3 text-xs font-black text-slate-400">
                     순서 {faq.sortOrder} · {faq.isPublished ? "공개" : "비공개"} · {faq.showOnHome ? "홈 노출" : "FAQ 페이지"}
                   </p>

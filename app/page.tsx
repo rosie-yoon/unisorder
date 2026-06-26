@@ -445,7 +445,7 @@ export default async function HomePage() {
                   <HelpCircle className="h-5 w-5 shrink-0 text-primary" />
                   {faq.question}
                 </h3>
-                <p className="mt-3 pl-8 leading-7 text-slate-600">{faq.answer}</p>
+                <p className="mt-3 whitespace-pre-line pl-8 leading-7 text-slate-600">{faq.answer}</p>
               </article>
             ))}
           </div>

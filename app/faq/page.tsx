@@ -18,7 +18,7 @@ export default async function FaqPage() {
         {visibleFaqs.map((faq) => (
           <article key={faq.id} className="p-6">
             <h2 className="text-lg font-black text-slate-950">{faq.question}</h2>
-            <p className="mt-3 leading-7 text-slate-600">{faq.answer}</p>
+            <p className="mt-3 whitespace-pre-line leading-7 text-slate-600">{faq.answer}</p>
           </article>
         ))}
       </div>
