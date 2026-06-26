@@ -24,6 +24,13 @@ const proPlanFeatures = [
   "부가세신고자료 원클릭 다운로드",
 ];
 
+const proOnlyPlanFeatures = [
+  "실시간 재고 연동",
+  "SKU 통합 재고 관리",
+  "자동 재고 차감 발주리스트",
+  "부가세신고자료 원클릭 다운로드",
+];
+
 const plans = [
   {
     name: "Free",
@@ -54,7 +61,7 @@ const plans = [
     platform: "Shopee 8개국",
     orderLimit: "무제한",
     icon: TrendingUp,
-    iconTone: "bg-violet-50 text-violet-600 ring-violet-100",
+    iconTone: "bg-blue-50 text-blue-600 ring-blue-100",
     features: proPlanFeatures,
   },
 ];
@@ -105,12 +112,16 @@ export default function PricingPage() {
               <div className="mt-6 flex-1 rounded-lg border border-slate-200 bg-white/80 p-4">
                 <p className="text-sm font-black text-slate-800">포함 기능</p>
                 <ul className="mt-3 space-y-2.5">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2.5 text-sm font-bold leading-5 text-slate-700">
-                      <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${plan.name === "Pro" ? "text-violet-500" : "text-primary"}`} />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
+                  {plan.features.map((feature) => {
+                    const isProOnly = plan.name === "Pro" && proOnlyPlanFeatures.includes(feature);
+
+                    return (
+                      <li key={feature} className="flex items-start gap-2.5 text-sm font-bold leading-5 text-slate-700">
+                        <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${isProOnly ? "text-blue-500" : "text-primary"}`} />
+                        <span>{feature}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
 
