@@ -41,14 +41,14 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-2 md:flex">
           <Link
-            href="https://app.unisorder.com/login"
+            href="https://unisorder.com/login"
             className="focus-ring inline-flex items-center gap-2 rounded-md border border-border bg-white px-3 py-2 text-sm font-bold text-slate-700 transition hover:border-primary/40 hover:text-primary"
           >
             <LogIn className="h-4 w-4" />
             로그인
           </Link>
           <Link
-            href="https://app.unisorder.com/login"
+            href="https://unisorder.com/login"
             className="focus-ring inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-primary-dark"
           >
             무료로 시작하기
@@ -72,13 +72,13 @@ export function SiteHeader() {
               </Link>
             ))}
             <Link
-              href="https://app.unisorder.com/login"
+              href="https://unisorder.com/login"
               className="mt-2 block rounded-md border border-border bg-white px-3 py-3 text-center text-sm font-black text-slate-700 hover:border-primary/40 hover:text-primary"
             >
               로그인
             </Link>
             <Link
-              href="https://app.unisorder.com/login"
+              href="https://unisorder.com/login"
               className="mt-2 block rounded-md bg-primary px-3 py-3 text-center text-sm font-black text-white hover:bg-primary-dark"
             >
               무료로 시작하기

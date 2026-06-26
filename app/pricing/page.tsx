@@ -127,7 +127,7 @@ export default function PricingPage() {
               </div>
 
               <Link
-                href="https://app.unisorder.com/login"
+                href="https://unisorder.com/login"
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md border border-border bg-white px-5 py-3 text-sm font-black text-slate-800 transition hover:border-primary/40 hover:text-primary"
               >
                 시작하기

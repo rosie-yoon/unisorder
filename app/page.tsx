@@ -226,7 +226,7 @@ export default async function HomePage() {
 
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:mt-10">
               <Link
-                href="https://app.unisorder.com/login"
+                href="https://unisorder.com/login"
                 className="focus-ring inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-primary via-[#18c789] to-[#34d399] px-8 py-3.5 text-lg font-black text-white shadow-[0_20px_25px_-5px_rgba(7,138,99,0.32),0_8px_10px_-6px_rgba(7,138,99,0.32)] transition hover:-translate-y-0.5 hover:from-primary-dark hover:via-primary hover:to-[#27d697] sm:min-w-60"
               >
                 무료로 시작하기
@@ -299,7 +299,7 @@ export default async function HomePage() {
             </div>
 
             <Link
-              href="https://app.unisorder.com/login"
+              href="https://unisorder.com/login"
               className="focus-ring group mt-3 block rounded-lg border border-primary/15 bg-[radial-gradient(circle_at_50%_-30%,rgba(25,185,127,0.10),transparent_38%),linear-gradient(180deg,#ffffff_0%,#fbfefd_100%)] p-5 text-center shadow-[0_18px_45px_rgba(15,23,42,0.05),inset_0_1px_0_rgba(255,255,255,0.9)] transition hover:-translate-y-0.5 hover:border-primary/30 md:mt-4 md:p-8"
             >
               <div className="mx-auto max-w-4xl">
@@ -400,7 +400,7 @@ export default async function HomePage() {
                   </ul>
                 </div>
                 <Link
-                  href="https://app.unisorder.com/login"
+                  href="https://unisorder.com/login"
                   className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md border border-border bg-white px-5 py-3 text-sm font-black text-slate-800 transition hover:border-primary/40 hover:text-primary"
                 >
                   시작하기
