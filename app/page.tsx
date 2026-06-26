@@ -173,6 +173,7 @@ const pricingPreview = [
 
 export default async function HomePage() {
   const faqs = await getFaqs({ publishedOnly: true, homeOnly: true });
+  const visibleFaqs = faqs.slice(0, 5);
 
   return (
     <main>
@@ -438,14 +439,14 @@ export default async function HomePage() {
             <h2 className="text-3xl font-black text-slate-950">자주 묻는 질문</h2>
           </div>
           <div className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-white">
-            {faqs.map((faq) => (
-              <details key={faq.id} className="group p-6">
-                <summary className="flex cursor-pointer list-none items-center gap-3 text-lg font-black text-slate-950">
+            {visibleFaqs.map((faq) => (
+              <article key={faq.id} className="p-6">
+                <h3 className="flex items-center gap-3 text-lg font-black text-slate-950">
                   <HelpCircle className="h-5 w-5 shrink-0 text-primary" />
                   {faq.question}
-                </summary>
+                </h3>
                 <p className="mt-3 pl-8 leading-7 text-slate-600">{faq.answer}</p>
-              </details>
+              </article>
             ))}
           </div>
         </div>

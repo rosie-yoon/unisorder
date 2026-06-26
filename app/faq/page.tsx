@@ -4,6 +4,7 @@ export const dynamic = "force-dynamic";
 
 export default async function FaqPage() {
   const faqs = await getFaqs({ publishedOnly: true });
+  const visibleFaqs = faqs.slice(0, 5);
 
   return (
     <main className="shell py-14">
@@ -14,13 +15,11 @@ export default async function FaqPage() {
         </p>
       </div>
       <div className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-white">
-        {faqs.map((faq) => (
-          <details key={faq.id} className="group p-6">
-            <summary className="cursor-pointer list-none text-lg font-black text-slate-950">
-              {faq.question}
-            </summary>
+        {visibleFaqs.map((faq) => (
+          <article key={faq.id} className="p-6">
+            <h2 className="text-lg font-black text-slate-950">{faq.question}</h2>
             <p className="mt-3 leading-7 text-slate-600">{faq.answer}</p>
-          </details>
+          </article>
         ))}
       </div>
     </main>
