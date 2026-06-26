@@ -7,7 +7,6 @@ const navItems = [
   { href: "/#features", label: "기능" },
   { href: "/#stories", label: "성장사례" },
   { href: "/#pricing", label: "이용요금" },
-  { href: "/#faq", label: "자주 묻는 질문" },
   { href: "/guide", label: "이용가이드" },
 ];
 

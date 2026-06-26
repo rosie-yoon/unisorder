@@ -11,7 +11,6 @@ import {
   FileText,
   Globe2,
   HeartHandshake,
-  HelpCircle,
   Languages,
   ReceiptText,
   ShoppingCart,
@@ -22,7 +21,6 @@ import {
 } from "lucide-react";
 import { FeatureShowcase } from "@/components/feature-showcase";
 import { GrowthStories } from "@/components/growth-stories";
-import { getFaqs } from "@/lib/content-store";
 
 export const dynamic = "force-dynamic";
 
@@ -172,9 +170,6 @@ const pricingPreview = [
 ];
 
 export default async function HomePage() {
-  const faqs = await getFaqs({ publishedOnly: true, homeOnly: true });
-  const visibleFaqs = faqs.slice(0, 5);
-
   return (
     <main>
       <section id="home" className="scroll-mt-20 overflow-hidden bg-white">
@@ -433,24 +428,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section id="faq" className="scroll-mt-20 border-t border-border bg-white py-16">
-        <div className="shell">
-          <div className="mb-8 max-w-3xl">
-            <h2 className="text-3xl font-black text-slate-950">자주 묻는 질문</h2>
-          </div>
-          <div className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-white">
-            {visibleFaqs.map((faq) => (
-              <article key={faq.id} className="p-6">
-                <h3 className="flex items-center gap-3 text-lg font-black text-slate-950">
-                  <HelpCircle className="h-5 w-5 shrink-0 text-primary" />
-                  {faq.question}
-                </h3>
-                <p className="mt-3 whitespace-pre-line pl-8 leading-7 text-slate-600">{faq.answer}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

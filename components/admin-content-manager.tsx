@@ -6,7 +6,6 @@ import {
   ArrowRight,
   ArrowUp,
   FileText,
-  HelpCircle,
   Layers,
   LogOut,
   Plus,
@@ -17,17 +16,8 @@ import {
   UserPlus,
   Users,
 } from "lucide-react";
-import type { FaqItem, GuideBlock, GuideRecord } from "@/lib/content-store";
+import type { GuideBlock, GuideRecord } from "@/lib/content-store";
 import type { PublicAdminUser } from "@/lib/admin-users";
-
-type FaqForm = {
-  id?: string;
-  question: string;
-  answer: string;
-  sortOrder: number;
-  isPublished: boolean;
-  showOnHome: boolean;
-};
 
 type GuideForm = {
   id?: string;
@@ -43,14 +33,6 @@ type GuideForm = {
 };
 
 type GuideBlockType = GuideBlock["type"];
-
-const emptyFaq: FaqForm = {
-  question: "",
-  answer: "",
-  sortOrder: 999,
-  isPublished: true,
-  showOnHome: false,
-};
 
 const sampleBlocks: GuideBlock[] = [
   {
@@ -106,8 +88,10 @@ const blockTypeLabels: Record<GuideBlockType, string> = {
   overview: "개요 카드",
   steps: "단계별 카드",
   callout: "안내 박스",
-  faq: "FAQ 묶음",
+  faq: "질문 묶음",
 };
+
+const availableGuideBlockTypes: GuideBlockType[] = ["overview", "steps", "callout"];
 
 async function adminFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(path, {
@@ -126,10 +110,6 @@ async function adminFetch<T>(path: string, init?: RequestInit): Promise<T> {
 
 function cloneBlocks(blocks: GuideBlock[]) {
   return JSON.parse(JSON.stringify(blocks)) as GuideBlock[];
-}
-
-function toFaqForm(faq: FaqItem): FaqForm {
-  return { ...faq };
 }
 
 function toGuideForm(guide: GuideRecord): GuideForm {
@@ -177,7 +157,7 @@ function createBlock(type: GuideBlockType): GuideBlock {
 
   return {
     type,
-    title: "자주 묻는 질문",
+    title: "질문 모음",
     items: [{ question: "질문을 입력하세요.", answer: "답변을 입력하세요." }],
   };
 }
@@ -196,11 +176,9 @@ function linesToArray(value: string) {
 export function AdminContentManager() {
   const [sessionUser, setSessionUser] = useState<PublicAdminUser | null>(null);
   const [needsSetup, setNeedsSetup] = useState(false);
-  const [activeTab, setActiveTab] = useState<"faqs" | "guides" | "users">("faqs");
-  const [faqs, setFaqs] = useState<FaqItem[]>([]);
+  const [activeTab, setActiveTab] = useState<"guides" | "users">("guides");
   const [guides, setGuides] = useState<GuideRecord[]>([]);
   const [adminUsers, setAdminUsers] = useState<PublicAdminUser[]>([]);
-  const [faqForm, setFaqForm] = useState<FaqForm>(emptyFaq);
   const [guideForm, setGuideForm] = useState<GuideForm>(() => ({ ...emptyGuide, blocks: cloneBlocks(emptyGuide.blocks) }));
   const [loginForm, setLoginForm] = useState({ username: "", password: "" });
   const [setupForm, setSetupForm] = useState({ setupKey: "", username: "", password: "" });
@@ -213,12 +191,11 @@ export function AdminContentManager() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("로그인 상태를 확인하는 중입니다.");
 
-  const isEditingFaq = Boolean(faqForm.id);
   const isEditingGuide = Boolean(guideForm.id);
   const isEditingUser = Boolean(userForm.id);
   const contentCountLabel = useMemo(
-    () => `${faqs.length}개 FAQ · ${guides.length}개 가이드 · ${adminUsers.length}명 관리자`,
-    [adminUsers.length, faqs.length, guides.length],
+    () => `${guides.length}개 가이드 · ${adminUsers.length}명 관리자`,
+    [adminUsers.length, guides.length],
   );
 
   useEffect(() => {
@@ -284,7 +261,6 @@ export function AdminContentManager() {
     try {
       await adminFetch("/api/admin/logout", { method: "POST" });
       setSessionUser(null);
-      setFaqs([]);
       setGuides([]);
       setAdminUsers([]);
       setMessage("로그아웃되었습니다.");
@@ -299,53 +275,15 @@ export function AdminContentManager() {
     setIsLoading(true);
     setMessage("관리 데이터를 불러오는 중입니다.");
     try {
-      const [faqPayload, guidePayload, usersPayload] = await Promise.all([
-        adminFetch<{ faqs: FaqItem[] }>("/api/admin/faqs"),
+      const [guidePayload, usersPayload] = await Promise.all([
         adminFetch<{ guides: GuideRecord[] }>("/api/admin/guides"),
         adminFetch<{ users: PublicAdminUser[] }>("/api/admin/users"),
       ]);
-      setFaqs(faqPayload.faqs);
       setGuides(guidePayload.guides);
       setAdminUsers(usersPayload.users);
       setMessage("관리 데이터를 불러왔습니다.");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "관리 데이터를 불러오지 못했습니다.");
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  async function submitFaq(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setIsLoading(true);
-    try {
-      const body = JSON.stringify(faqForm);
-      if (isEditingFaq && faqForm.id) {
-        await adminFetch(`/api/admin/faqs/${faqForm.id}`, { method: "PUT", body });
-        setMessage("FAQ를 수정했습니다.");
-      } else {
-        await adminFetch("/api/admin/faqs", { method: "POST", body });
-        setMessage("FAQ를 등록했습니다.");
-      }
-      setFaqForm(emptyFaq);
-      await loadContent();
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : "FAQ 저장에 실패했습니다.");
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  async function deleteSelectedFaq() {
-    if (!faqForm.id || !window.confirm("선택한 FAQ를 삭제할까요?")) return;
-    setIsLoading(true);
-    try {
-      await adminFetch(`/api/admin/faqs/${faqForm.id}`, { method: "DELETE" });
-      setFaqForm(emptyFaq);
-      setMessage("FAQ를 삭제했습니다.");
-      await loadContent();
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : "FAQ 삭제에 실패했습니다.");
     } finally {
       setIsLoading(false);
     }
@@ -542,18 +480,8 @@ export function AdminContentManager() {
         <div className="rounded-lg border border-border bg-white p-2 shadow-sm">
           <button
             type="button"
-            onClick={() => setActiveTab("faqs")}
-            className={`flex w-full items-center gap-2 rounded-md px-3 py-3 text-left text-sm font-black ${
-              activeTab === "faqs" ? "bg-primary-soft text-primary-dark" : "text-slate-600 hover:bg-slate-50"
-            }`}
-          >
-            <HelpCircle className="h-4 w-4" />
-            자주 묻는 질문
-          </button>
-          <button
-            type="button"
             onClick={() => setActiveTab("guides")}
-            className={`mt-1 flex w-full items-center gap-2 rounded-md px-3 py-3 text-left text-sm font-black ${
+            className={`flex w-full items-center gap-2 rounded-md px-3 py-3 text-left text-sm font-black ${
               activeTab === "guides" ? "bg-primary-soft text-primary-dark" : "text-slate-600 hover:bg-slate-50"
             }`}
           >
@@ -577,88 +505,7 @@ export function AdminContentManager() {
         </div>
       </aside>
 
-      {activeTab === "faqs" ? (
-        <section className="grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">
-          <div className="rounded-lg border border-border bg-white p-5 shadow-sm">
-            <div className="flex items-center justify-between gap-3">
-              <h2 className="text-xl font-black text-slate-950">FAQ 목록</h2>
-              <button
-                type="button"
-                onClick={() => setFaqForm(emptyFaq)}
-                className="inline-flex items-center gap-1 rounded-md border border-border px-3 py-2 text-xs font-black text-slate-700 hover:border-primary/40 hover:text-primary"
-              >
-                <Plus className="h-4 w-4" />
-                새 FAQ
-              </button>
-            </div>
-            <div className="mt-4 space-y-2">
-              {faqs.map((faq) => (
-                <button
-                  key={faq.id}
-                  type="button"
-                  onClick={() => setFaqForm(toFaqForm(faq))}
-                  className={`w-full rounded-md border p-4 text-left transition ${
-                    faqForm.id === faq.id ? "border-primary bg-primary-soft/60" : "border-border bg-white hover:border-primary/30"
-                  }`}
-                >
-                  <p className="text-sm font-black text-slate-950">{faq.question}</p>
-                  <p className="mt-2 line-clamp-2 whitespace-pre-line text-xs font-semibold leading-5 text-slate-500">{faq.answer}</p>
-                  <p className="mt-3 text-xs font-black text-slate-400">
-                    순서 {faq.sortOrder} · {faq.isPublished ? "공개" : "비공개"} · {faq.showOnHome ? "홈 노출" : "FAQ 페이지"}
-                  </p>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <form onSubmit={submitFaq} className="rounded-lg border border-border bg-white p-5 shadow-sm">
-            <h2 className="text-xl font-black text-slate-950">{isEditingFaq ? "FAQ 수정" : "FAQ 등록"}</h2>
-            <label className="mt-5 block text-sm font-black text-slate-700">
-              질문
-              <input
-                value={faqForm.question}
-                onChange={(event) => setFaqForm((form) => ({ ...form, question: event.target.value }))}
-                className="mt-2 w-full rounded-md border border-border px-3 py-2 text-sm font-semibold outline-none focus:border-primary"
-                required
-              />
-            </label>
-            <label className="mt-4 block text-sm font-black text-slate-700">
-              답변
-              <textarea
-                value={faqForm.answer}
-                onChange={(event) => setFaqForm((form) => ({ ...form, answer: event.target.value }))}
-                className="mt-2 min-h-32 w-full rounded-md border border-border px-3 py-2 text-sm font-semibold leading-6 outline-none focus:border-primary"
-                required
-              />
-            </label>
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              <label className="block text-sm font-black text-slate-700">
-                노출 순서
-                <input
-                  value={faqForm.sortOrder}
-                  onChange={(event) => setFaqForm((form) => ({ ...form, sortOrder: Number(event.target.value) }))}
-                  className="mt-2 w-full rounded-md border border-border px-3 py-2 text-sm font-semibold outline-none focus:border-primary"
-                  type="number"
-                />
-              </label>
-              <label className="flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm font-black text-slate-700 sm:mt-7">
-                <input checked={faqForm.isPublished} onChange={(event) => setFaqForm((form) => ({ ...form, isPublished: event.target.checked }))} type="checkbox" />
-                공개
-              </label>
-              <label className="flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm font-black text-slate-700 sm:mt-7">
-                <input checked={faqForm.showOnHome} onChange={(event) => setFaqForm((form) => ({ ...form, showOnHome: event.target.checked }))} type="checkbox" />
-                홈 노출
-              </label>
-            </div>
-            <ActionButtons
-              isEditing={isEditingFaq}
-              isLoading={isLoading}
-              submitLabel={isEditingFaq ? "수정 저장" : "등록"}
-              onDelete={deleteSelectedFaq}
-            />
-          </form>
-        </section>
-      ) : activeTab === "guides" ? (
+      {activeTab === "guides" ? (
         <section className="grid gap-5 xl:grid-cols-[0.82fr_1.18fr]">
           <GuideList guides={guides} activeId={guideForm.id} onNew={() => setGuideForm({ ...emptyGuide, blocks: cloneBlocks(emptyGuide.blocks) })} onSelect={(guide) => setGuideForm(toGuideForm(guide))} />
 
@@ -916,10 +763,10 @@ function GuideBlockEditor({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h3 className="text-lg font-black text-slate-950">가이드 블록</h3>
-          <p className="mt-1 text-sm font-semibold text-slate-500">개요, 단계, 안내박스, FAQ를 카드 단위로 관리합니다.</p>
+          <p className="mt-1 text-sm font-semibold text-slate-500">개요, 단계, 안내박스를 카드 단위로 관리합니다.</p>
         </div>
         <div className="flex flex-wrap gap-2">
-          {(Object.keys(blockTypeLabels) as GuideBlockType[]).map((type) => (
+          {availableGuideBlockTypes.map((type) => (
             <button key={type} type="button" onClick={() => onAdd(type)} className="inline-flex items-center gap-1 rounded-md border border-border px-3 py-2 text-xs font-black text-slate-700 hover:border-primary/40 hover:text-primary">
               <Plus className="h-4 w-4" />
               {blockTypeLabels[type]}

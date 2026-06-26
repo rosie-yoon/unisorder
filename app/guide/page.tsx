@@ -13,7 +13,7 @@ export default async function GuideIndexPage() {
         <p className="text-sm font-black uppercase tracking-[0.18em] text-primary">Guide</p>
         <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950">이용 가이드</h1>
         <p className="mt-5 text-lg leading-8 text-slate-600">
-          기능별 매뉴얼을 단계별 카드, 팁, FAQ 블록으로 정리합니다. 이후 어드민에서 같은 구조로 문서를 추가합니다.
+          기능별 매뉴얼을 단계별 카드와 안내 박스로 정리합니다. 이후 어드민에서 같은 구조로 문서를 추가합니다.
         </p>
       </div>
 
