@@ -122,7 +122,7 @@ export function GrowthStories() {
                           <p className="mt-1 text-xl font-black leading-tight text-slate-950">{story.nickname}</p>
                         </div>
                       </div>
-                      <blockquote className="relative mt-6 rounded-[1.35rem] rounded-bl-md bg-primary-soft px-6 py-6 text-xl font-black leading-snug text-slate-950 shadow-[0_8px_0_rgba(7,138,99,0.08)] md:px-7 md:py-7 md:text-2xl">
+                      <blockquote className="relative mt-6 rounded-[1.35rem] rounded-bl-md bg-[#fff1b8] px-6 py-6 text-xl font-black leading-snug text-slate-950 shadow-[0_8px_0_rgba(245,158,11,0.16)] md:px-7 md:py-7 md:text-2xl">
                         <span className="sr-only">“{story.quote}”</span>
                         <span className="break-keep" aria-hidden="true">
                           {story.quoteLines.map((line, index) => (
@@ -133,7 +133,7 @@ export function GrowthStories() {
                             </span>
                           ))}
                         </span>
-                        <span className="absolute -bottom-5 left-8 h-6 w-8 bg-primary-soft [clip-path:polygon(0_0,100%_0,0_100%)]" aria-hidden="true" />
+                        <span className="absolute -bottom-5 left-8 h-6 w-8 bg-[#fff1b8] [clip-path:polygon(0_0,100%_0,0_100%)]" aria-hidden="true" />
                       </blockquote>
                       <h3 className="mt-7 min-h-[82px] text-lg font-black leading-snug text-slate-900 md:min-h-[82px] md:text-[22px]">
                         {story.title}
