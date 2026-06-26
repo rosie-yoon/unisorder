@@ -105,6 +105,23 @@ const solutionMetrics = [
   },
 ];
 
+const commonPlanFeatures = [
+  "통합 대시보드",
+  "실시간 주문 수집",
+  "통합 주문 처리",
+  "한글 송장 출력",
+  "Shopee 프리디클레어 지원",
+  "수동 재고 차감 발주리스트",
+  "운영 분석 리포트",
+];
+
+const proAdditionalFeatures = [
+  "실시간 재고 연동",
+  "SKU 통합 재고 관리",
+  "자동 재고 차감 발주리스트",
+  "부가세신고자료 원클릭 다운로드",
+];
+
 const pricingPreview = [
   {
     name: "Free",
@@ -114,7 +131,7 @@ const pricingPreview = [
     orderLimit: "200건/월",
     icon: Star,
     iconTone: "bg-sky-50 text-sky-600 ring-sky-100",
-    features: ["통합 대시보드", "주문 수집", "기본 운영 흐름 확인"],
+    features: commonPlanFeatures,
   },
   {
     name: "Basic",
@@ -125,7 +142,7 @@ const pricingPreview = [
     orderLimit: "무제한",
     icon: Zap,
     iconTone: "bg-emerald-50 text-emerald-600 ring-emerald-100",
-    features: ["통합 주문처리", "한글 송장 출력", "주문 수집 무제한"],
+    features: commonPlanFeatures,
   },
   {
     name: "Pro",
@@ -136,7 +153,8 @@ const pricingPreview = [
     orderLimit: "무제한",
     icon: TrendingUp,
     iconTone: "bg-violet-50 text-violet-600 ring-violet-100",
-    features: ["재고·발주 관리", "마진 분석", "운영 자료 다운로드"],
+    features: commonPlanFeatures,
+    additionalFeatures: proAdditionalFeatures,
   },
 ];
 
@@ -352,14 +370,29 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-lg border border-dashed border-slate-200 bg-white/70 p-4">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                    <div>
-                      <p className="text-sm font-black text-slate-800">플랜별 포함 기능</p>
-                      <p className="mt-1 text-sm leading-6 text-slate-500">상세 기능 구성은 다음 단계에서 확정됩니다.</p>
+                <div className="mt-6 rounded-lg border border-slate-200 bg-white/80 p-4">
+                  <p className="text-sm font-black text-slate-800">포함 기능</p>
+                  <ul className="mt-3 space-y-2.5">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2.5 text-sm font-bold leading-5 text-slate-700">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {"additionalFeatures" in plan ? (
+                    <div className="mt-4 border-t border-slate-100 pt-4">
+                      <p className="text-sm font-black text-violet-700">Pro 추가 기능</p>
+                      <ul className="mt-3 space-y-2.5">
+                        {plan.additionalFeatures?.map((feature) => (
+                          <li key={feature} className="flex items-start gap-2.5 text-sm font-bold leading-5 text-slate-700">
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-violet-500" />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </div>
+                  ) : null}
                 </div>
                 <Link
                   href="https://app.unisorder.com/login"
