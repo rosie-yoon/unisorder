@@ -12,27 +12,16 @@ export default async function GuideIndexPage() {
   return (
     <main className="bg-[linear-gradient(180deg,#ffffff_0%,#f7fbf9_42%,#ffffff_100%)]">
       <section className="shell py-10 md:py-14">
-        <div className="max-w-4xl">
-          <h1 className="text-4xl font-black tracking-tight text-slate-950 md:text-5xl">이용 가이드</h1>
-          <p className="mt-5 max-w-3xl text-lg font-semibold leading-8 text-slate-600">
-            필요한 설정과 기능을 추천 경로로 빠르게 찾고, 이미지 중심 매뉴얼을 보며 순서대로 따라하세요.
-          </p>
-        </div>
-
-        <div className="mt-8 grid gap-8 lg:grid-cols-[280px_1fr] lg:items-start">
+        <div className="grid gap-8 lg:grid-cols-[280px_1fr] lg:items-start">
           <GuideNavigation guides={guides} />
 
           <div className="space-y-8">
             <section>
               <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
-                <div>
-                  <div className="flex items-center gap-2 text-sm font-black text-primary-dark">
-                    <Route className="h-4 w-4" />
-                    처음 설정할 때 많이 보는 순서
-                  </div>
-                  <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950">추천 경로</h2>
+                <div className="flex items-center gap-2 text-sm font-black text-primary-dark">
+                  <Route className="h-4 w-4" />
+                  처음 설정할 때 많이 보는 순서
                 </div>
-                <p className="text-sm font-semibold leading-6 text-slate-500">Basic, Pro, Lazada처럼 상황별로 필요한 문서를 묶어봅니다.</p>
               </div>
               <div className="grid gap-4 md:grid-cols-2">
                 {paths.map((path) => (
