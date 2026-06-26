@@ -130,7 +130,7 @@ export default function PricingPage() {
                 href="https://unisorder.com/login"
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md border border-border bg-white px-5 py-3 text-sm font-black text-slate-800 transition hover:border-primary/40 hover:text-primary"
               >
-                시작하기
+                {plan.name === "Free" ? "무료로 시작하기" : "플랜 선택하기"}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </article>

@@ -359,7 +359,7 @@ export default async function HomePage() {
             {pricingPreview.map((plan) => (
               <article
                 key={plan.name}
-                className="relative rounded-lg border border-slate-200 bg-white p-6 shadow-[0_16px_45px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-[0_22px_60px_rgba(15,23,42,0.08)]"
+                className="relative flex flex-col rounded-lg border border-slate-200 bg-white p-6 shadow-[0_16px_45px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-[0_22px_60px_rgba(15,23,42,0.08)]"
               >
                 <div>
                   <p className="text-xl font-black text-slate-950">{plan.name}</p>
@@ -383,7 +383,7 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-lg border border-slate-200 bg-white/80 p-4">
+                <div className="mt-6 flex-1 rounded-lg border border-slate-200 bg-white/80 p-4">
                   <p className="text-sm font-black text-slate-800">포함 기능</p>
                   <ul className="mt-3 space-y-2.5">
                     {plan.features.map((feature) => {
@@ -403,7 +403,7 @@ export default async function HomePage() {
                   href="https://unisorder.com/login"
                   className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md border border-border bg-white px-5 py-3 text-sm font-black text-slate-800 transition hover:border-primary/40 hover:text-primary"
                 >
-                  시작하기
+                  {plan.name === "Free" ? "무료로 시작하기" : "플랜 선택하기"}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </article>
