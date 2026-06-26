@@ -1,4 +1,4 @@
-import { AlertTriangle, Check, Info, Lightbulb, MousePointerClick } from "lucide-react";
+import { AlertTriangle, Check, Info, Lightbulb } from "lucide-react";
 import type { Guide, GuideBlock } from "@/lib/guides";
 import { ManualImageViewer } from "@/components/manual-image-viewer";
 
@@ -94,11 +94,7 @@ function GuideBlockView({ block }: { block: GuideBlock }) {
     return (
       <section>
         <div className="mb-6">
-          <p className="inline-flex items-center gap-2 rounded-full bg-primary-soft px-3 py-1 text-sm font-black text-primary-dark">
-            <MousePointerClick className="h-4 w-4" />
-            단계별 매뉴얼
-          </p>
-          <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-950 md:text-3xl">{block.title}</h2>
+          <h2 className="text-2xl font-black tracking-tight text-slate-950 md:text-3xl">{block.title}</h2>
         </div>
         <div className="space-y-6">
           {block.items.map((item, index) => (
