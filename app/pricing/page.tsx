@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, HeartHandshake, Star, TrendingUp, Zap } from "lucide-react";
+import { ArrowRight, CheckCircle2, CirclePlus, HeartHandshake, Star, TrendingUp, Zap } from "lucide-react";
 
 const commonPlanFeatures = [
   "통합 대시보드",
@@ -114,10 +114,11 @@ export default function PricingPage() {
                 <ul className="mt-3 space-y-2.5">
                   {plan.features.map((feature) => {
                     const isProOnly = plan.name === "Pro" && proOnlyPlanFeatures.includes(feature);
+                    const FeatureIcon = isProOnly ? CirclePlus : CheckCircle2;
 
                     return (
                       <li key={feature} className="flex items-start gap-2.5 text-sm font-bold leading-5 text-slate-700">
-                        <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${isProOnly ? "text-blue-500" : "text-primary"}`} />
+                        <FeatureIcon className={`mt-0.5 h-4 w-4 shrink-0 ${isProOnly ? "text-blue-500" : "text-primary"}`} />
                         <span>{feature}</span>
                       </li>
                     );

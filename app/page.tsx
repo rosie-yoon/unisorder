@@ -6,6 +6,7 @@ import {
   BarChart3,
   Boxes,
   CheckCircle2,
+  CirclePlus,
   ClipboardList,
   FileText,
   Globe2,
@@ -387,10 +388,11 @@ export default async function HomePage() {
                   <ul className="mt-3 space-y-2.5">
                     {plan.features.map((feature) => {
                       const isProOnly = plan.name === "Pro" && proOnlyPlanFeatures.includes(feature);
+                      const FeatureIcon = isProOnly ? CirclePlus : CheckCircle2;
 
                       return (
                         <li key={feature} className="flex items-start gap-2.5 text-sm font-bold leading-5 text-slate-700">
-                          <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${isProOnly ? "text-blue-500" : "text-primary"}`} />
+                          <FeatureIcon className={`mt-0.5 h-4 w-4 shrink-0 ${isProOnly ? "text-blue-500" : "text-primary"}`} />
                           <span>{feature}</span>
                         </li>
                       );
