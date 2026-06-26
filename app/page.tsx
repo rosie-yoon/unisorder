@@ -115,12 +115,16 @@ const commonPlanFeatures = [
   "운영 분석 리포트",
 ];
 
-const proIncludedFeatures = commonPlanFeatures.filter((feature) => feature !== "수동 재고 차감 발주리스트");
-
-const proAdditionalFeatures = [
+const proPlanFeatures = [
+  "통합 대시보드",
+  "실시간 주문 수집",
+  "통합 주문 처리",
+  "한글 송장 출력",
+  "쇼피 프리디클레어",
   "실시간 재고 연동",
   "SKU 통합 재고 관리",
   "자동 재고 차감 발주리스트",
+  "운영 분석 리포트",
   "부가세신고자료 원클릭 다운로드",
 ];
 
@@ -155,8 +159,7 @@ const pricingPreview = [
     orderLimit: "무제한",
     icon: TrendingUp,
     iconTone: "bg-violet-50 text-violet-600 ring-violet-100",
-    features: proIncludedFeatures,
-    additionalFeatures: proAdditionalFeatures,
+    features: proPlanFeatures,
   },
 ];
 
@@ -377,13 +380,7 @@ export default async function HomePage() {
                   <ul className="mt-3 space-y-2.5">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-start gap-2.5 text-sm font-bold leading-5 text-slate-700">
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                    {plan.additionalFeatures?.map((feature) => (
-                      <li key={feature} className="flex items-start gap-2.5 text-sm font-black leading-5 text-violet-700">
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-violet-500" />
+                        <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${plan.name === "Pro" ? "text-violet-500" : "text-primary"}`} />
                         <span>{feature}</span>
                       </li>
                     ))}
