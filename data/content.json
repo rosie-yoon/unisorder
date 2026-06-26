@@ -59,6 +59,8 @@
       "duration": "약 5분",
       "iconName": "link",
       "sortOrder": 10,
+      "pathOrder": 10,
+      "recommendedPaths": ["Basic 시작하기", "Pro 시작하기"],
       "isPublished": true,
       "blocks": [
         {
@@ -119,6 +121,8 @@
       "duration": "약 5분",
       "iconName": "link",
       "sortOrder": 20,
+      "pathOrder": 10,
+      "recommendedPaths": ["Lazada 추가 시작하기"],
       "isPublished": true,
       "blocks": [
         {
@@ -178,6 +182,8 @@
       "duration": "약 4분",
       "iconName": "receipt",
       "sortOrder": 30,
+      "pathOrder": 20,
+      "recommendedPaths": ["Basic 시작하기", "주문 처리 루틴 만들기"],
       "isPublished": true,
       "blocks": [
         {
@@ -237,6 +243,8 @@
       "duration": "약 6분",
       "iconName": "calculator",
       "sortOrder": 40,
+      "pathOrder": 30,
+      "recommendedPaths": ["Pro 시작하기"],
       "isPublished": true,
       "blocks": [
         {

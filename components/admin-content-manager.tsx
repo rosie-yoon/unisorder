@@ -28,7 +28,9 @@ type GuideForm = {
   duration: string;
   iconName: string;
   sortOrder: number;
+  pathOrder: number;
   isPublished: boolean;
+  recommendedPaths: string[];
   blocks: GuideBlock[];
 };
 
@@ -71,7 +73,9 @@ const emptyGuide: GuideForm = {
   duration: "약 5분",
   iconName: "file",
   sortOrder: 999,
+  pathOrder: 999,
   isPublished: true,
+  recommendedPaths: ["Basic 시작하기"],
   blocks: sampleBlocks,
 };
 
@@ -729,6 +733,9 @@ function GuideList({
             <p className="mt-3 text-xs font-black text-slate-400">
               /guide/{guide.slug} · {guide.category} · {guide.isPublished ? "공개" : "비공개"}
             </p>
+            {guide.recommendedPaths.length > 0 ? (
+              <p className="mt-2 text-xs font-black text-primary-dark">{guide.recommendedPaths.join(" · ")}</p>
+            ) : null}
           </button>
         ))}
       </div>
@@ -776,10 +783,23 @@ function GuideMetaForm({
           노출 순서
           <input value={guideForm.sortOrder} onChange={(event) => setGuideForm((form) => ({ ...form, sortOrder: Number(event.target.value) }))} className="mt-2 w-full rounded-md border border-border px-3 py-2 text-sm font-semibold outline-none focus:border-primary" type="number" />
         </label>
+        <label className="block text-sm font-black text-slate-700">
+          추천 경로 내 순서
+          <input value={guideForm.pathOrder} onChange={(event) => setGuideForm((form) => ({ ...form, pathOrder: Number(event.target.value) }))} className="mt-2 w-full rounded-md border border-border px-3 py-2 text-sm font-semibold outline-none focus:border-primary" type="number" />
+        </label>
       </div>
       <label className="mt-4 block text-sm font-black text-slate-700">
         설명
         <textarea value={guideForm.description} onChange={(event) => setGuideForm((form) => ({ ...form, description: event.target.value }))} className="mt-2 min-h-24 w-full rounded-md border border-border px-3 py-2 text-sm font-semibold leading-6 outline-none focus:border-primary" required />
+      </label>
+      <label className="mt-4 block text-sm font-black text-slate-700">
+        추천 경로, 한 줄에 하나씩
+        <textarea
+          value={splitLines(guideForm.recommendedPaths)}
+          onChange={(event) => setGuideForm((form) => ({ ...form, recommendedPaths: linesToArray(event.target.value) }))}
+          className="mt-2 min-h-24 w-full rounded-md border border-border px-3 py-2 text-sm font-semibold leading-6 outline-none focus:border-primary"
+          placeholder={"Basic 시작하기\nPro 시작하기\nLazada 추가 시작하기"}
+        />
       </label>
       <label className="mt-4 flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm font-black text-slate-700">
         <input checked={guideForm.isPublished} onChange={(event) => setGuideForm((form) => ({ ...form, isPublished: event.target.checked }))} type="checkbox" />

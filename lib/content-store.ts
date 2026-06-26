@@ -51,8 +51,10 @@ export type GuideRecord = {
   duration: string;
   iconName: string;
   sortOrder: number;
+  pathOrder: number;
   isPublished: boolean;
   videoUrl?: string;
+  recommendedPaths: string[];
   blocks: GuideBlock[];
 };
 
@@ -232,18 +234,25 @@ export function normalizeGuideBlocks(value: unknown): GuideBlock[] {
 
 function normalizeGuide(input: Partial<GuideInput>, fallbackId?: string): GuideRecord {
   const title = ensureText(input.title, "가이드 제목");
+  const category = ensureText(input.category, "카테고리");
+  const sortOrder = ensureNumber(input.sortOrder);
+  const recommendedPaths = Array.isArray(input.recommendedPaths)
+    ? input.recommendedPaths.map((item) => String(item).trim()).filter(Boolean)
+    : [];
 
   return {
     id: input.id?.trim() || fallbackId || createId("guide"),
     slug: slugify(input.slug || title),
     title,
-    category: ensureText(input.category, "카테고리"),
+    category,
     description: ensureText(input.description, "설명"),
     duration: ensureText(input.duration, "예상 소요"),
     iconName: typeof input.iconName === "string" && input.iconName.trim() ? input.iconName.trim() : "file",
-    sortOrder: ensureNumber(input.sortOrder),
+    sortOrder,
+    pathOrder: ensureNumber(input.pathOrder, sortOrder),
     isPublished: ensureBoolean(input.isPublished, true),
     videoUrl: typeof input.videoUrl === "string" && input.videoUrl.trim() ? input.videoUrl.trim() : undefined,
+    recommendedPaths,
     blocks: normalizeGuideBlocks(input.blocks),
   };
 }
@@ -258,8 +267,10 @@ function toSupabaseGuide(guide: GuideRecord) {
     duration: guide.duration,
     icon_name: guide.iconName,
     sort_order: guide.sortOrder,
+    path_order: guide.pathOrder,
     is_published: guide.isPublished,
     video_url: guide.videoUrl ?? null,
+    recommended_paths: guide.recommendedPaths,
     blocks: guide.blocks,
   };
 }
@@ -274,8 +285,10 @@ function fromSupabaseGuide(row: Record<string, unknown>): GuideRecord {
     duration: String(row.duration),
     iconName: String(row.icon_name ?? "file"),
     sortOrder: ensureNumber(row.sort_order),
+    pathOrder: ensureNumber(row.path_order, ensureNumber(row.sort_order)),
     isPublished: ensureBoolean(row.is_published, true),
     videoUrl: typeof row.video_url === "string" ? row.video_url : undefined,
+    recommendedPaths: Array.isArray(row.recommended_paths) ? row.recommended_paths.map((item) => String(item).trim()).filter(Boolean) : [],
     blocks: normalizeGuideBlocks(row.blocks),
   });
 }
