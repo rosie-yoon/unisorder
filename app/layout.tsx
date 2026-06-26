@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { KakaoFloatingButton } from "@/components/kakao-floating-button";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader />
         {children}
         <SiteFooter />
+        <KakaoFloatingButton />
       </body>
     </html>
   );
