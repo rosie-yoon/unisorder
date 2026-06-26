@@ -11,6 +11,8 @@ const commonPlanFeatures = [
   "운영 분석 리포트",
 ];
 
+const proIncludedFeatures = commonPlanFeatures.filter((feature) => feature !== "수동 재고 차감 발주리스트");
+
 const proAdditionalFeatures = [
   "실시간 재고 연동",
   "SKU 통합 재고 관리",
@@ -49,7 +51,7 @@ const plans = [
     orderLimit: "무제한",
     icon: TrendingUp,
     iconTone: "bg-violet-50 text-violet-600 ring-violet-100",
-    features: commonPlanFeatures,
+    features: proIncludedFeatures,
     additionalFeatures: proAdditionalFeatures,
   },
 ];
@@ -106,20 +108,13 @@ export default function PricingPage() {
                       <span>{feature}</span>
                     </li>
                   ))}
+                  {plan.additionalFeatures?.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2.5 text-sm font-black leading-5 text-violet-700">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-violet-500" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
                 </ul>
-                {"additionalFeatures" in plan ? (
-                  <div className="mt-4 border-t border-slate-100 pt-4">
-                    <p className="text-sm font-black text-violet-700">Pro 추가 기능</p>
-                    <ul className="mt-3 space-y-2.5">
-                      {plan.additionalFeatures?.map((feature) => (
-                        <li key={feature} className="flex items-start gap-2.5 text-sm font-bold leading-5 text-slate-700">
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-violet-500" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
               </div>
 
               <Link
