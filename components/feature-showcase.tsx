@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import {
   BarChart3,
@@ -206,13 +205,22 @@ export function FeatureShowcase() {
 
         <div className="rounded-lg border border-primary/10 bg-[linear-gradient(180deg,#f8fffb_0%,#eef8f5_100%)] p-4 shadow-[0_24px_70px_rgba(15,23,42,0.08)] md:p-8">
           <div className="relative aspect-[1252/1269] overflow-hidden rounded-lg border border-white bg-white shadow-[0_18px_50px_rgba(15,23,42,0.10)]">
-            <Image
-              src={active.imageSrc}
-              alt={`${active.label} 기능 화면 예시`}
-              fill
-              sizes="(min-width: 1024px) 47vw, 100vw"
-              className="object-contain"
-            />
+            {featureTabs.map((feature, index) => (
+              <img
+                key={feature.imageSrc}
+                src={feature.imageSrc}
+                alt={index === activeIndex ? `${feature.label} 기능 화면 예시` : ""}
+                width={feature.imageWidth}
+                height={feature.imageHeight}
+                loading="eager"
+                decoding="async"
+                fetchPriority={index === 0 ? "high" : "low"}
+                aria-hidden={index === activeIndex ? undefined : true}
+                className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-200 ease-out ${
+                  index === activeIndex ? "opacity-100" : "pointer-events-none opacity-0"
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
