@@ -35,10 +35,10 @@ export function SiteFooter() {
               <span className="text-slate-300">|</span>
             </span>
             <span className="flex gap-3 md:gap-4">
-              <Link href="/privacy" className="transition hover:text-primary">
+              <Link href="https://unisorder.com/privacy" className="transition hover:text-primary">
                 개인정보처리방침
               </Link>
-              <Link href="/terms" className="transition hover:text-primary">
+              <Link href="https://unisorder.com/terms" className="transition hover:text-primary">
                 이용약관
               </Link>
             </span>
