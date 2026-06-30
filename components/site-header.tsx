@@ -14,7 +14,7 @@ const navItems = [
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/80 bg-white/86 backdrop-blur-xl">
-      <div className="shell flex h-16 items-center justify-between gap-5">
+      <div className="shell relative flex h-16 items-center justify-between gap-5">
         <Link href="/" className="focus-ring flex items-center gap-3 rounded-lg">
           <Image
             src="/brand/unis-logo.png"
@@ -27,7 +27,7 @@ export function SiteHeader() {
           <span className="sr-only">UnisOrder 홈</span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="주요 메뉴">
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex" aria-label="주요 메뉴">
           {navItems.map((item) => (
             <Link
               key={item.href}
