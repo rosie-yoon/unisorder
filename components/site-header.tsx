@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, LogIn, Menu } from "lucide-react";
+import { externalGuideUrl } from "@/lib/site-links";
 
 const navItems = [
   { href: "/", label: "홈" },
   { href: "/#features", label: "기능" },
   { href: "/#stories", label: "성장사례" },
   { href: "/#pricing", label: "이용요금" },
-  { href: "/guide", label: "이용가이드" },
+  { href: externalGuideUrl, label: "이용가이드" },
 ];
 
 export function SiteHeader() {

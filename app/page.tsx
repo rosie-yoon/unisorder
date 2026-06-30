@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { FeatureShowcase } from "@/components/feature-showcase";
 import { GrowthStories } from "@/components/growth-stories";
+import { externalGuideUrl } from "@/lib/site-links";
 
 export const dynamic = "force-dynamic";
 
@@ -229,7 +230,7 @@ export default async function HomePage() {
                 <ArrowRight className="h-5 w-5" />
               </Link>
               <Link
-                href="/guide"
+                href={externalGuideUrl}
                 className="focus-ring inline-flex items-center justify-center rounded-md border border-border bg-white px-8 py-3.5 text-lg font-black text-slate-700 transition hover:border-primary/40 hover:text-primary sm:min-w-60"
               >
                 이용 가이드 보기
