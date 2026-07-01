@@ -203,87 +203,97 @@
           <p>지금 성장 단계에 맞는 플랜을 선택하세요.</p>
         </div>
 
-        <div class="pricing-grid">
-          <article class="price-card">
-            <h3>Free</h3>
-            <div class="price free">무료</div>
-            <p>쇼피 입문 셀러를 위한 플랜</p>
-            <dl>
-              <div><dt>지원 플랫폼</dt><dd>Shopee 8개국</dd></div>
-              <div><dt>주문수집</dt><dd>200건/월</dd></div>
-            </dl>
-            <ul>
-              <li>통합 대시보드</li>
-              <li>실시간 주문 수집</li>
-              <li>통합 주문 처리</li>
-              <li>한글 송장 출력</li>
-              <li>쇼피 프리디클레어</li>
-              <li>수동 재고 차감 발주리스트</li>
-              <li>운영 분석 리포트</li>
-            </ul>
-            <a class="button button-light plan-button" href="<%= loginUrl %>">무료로 시작하기</a>
+        <div class="pricing-grid pc-grid">
+          <article class="price-card pc-card">
+            <h3 class="pc-name">Free</h3>
+            <div class="pc-price-row"><span class="price pc-price free">무료</span></div>
+            <p class="pc-desc">쇼피 입문 셀러를 위한 플랜</p>
+            <div class="pc-infobox">
+              <div><div class="pc-info-label">지원 플랫폼</div><div class="pc-info-value">Shopee 8개국</div></div>
+              <div><div class="pc-info-label">주문수집</div><div class="pc-info-value">200건/월</div></div>
+            </div>
+            <div class="pc-featurebox">
+              <div class="pc-features-header">포함 기능</div>
+              <ul class="pc-features">
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>통합 대시보드</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>실시간 주문 수집</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>통합 주문 처리</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>한글 송장 출력</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>쇼피 프리디클레어</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>수동 재고 차감 발주리스트</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>운영 분석 리포트</span></li>
+              </ul>
+            </div>
+            <a class="pc-cta" href="<%= loginUrl %>"><span>무료로 시작하기</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
           </article>
 
-          <article class="price-card">
-            <h3>Basic</h3>
-            <div class="price"><span>월</span> 70,000원 <em>VAT 별도</em></div>
-            <p>본격적으로 성장하는 셀러를 위한 플랜</p>
-            <dl>
-              <div><dt>지원 플랫폼</dt><dd>Shopee 8개국</dd></div>
-              <div><dt>주문수집</dt><dd>무제한</dd></div>
-            </dl>
-            <ul>
-              <li>통합 대시보드</li>
-              <li>실시간 주문 수집</li>
-              <li>통합 주문 처리</li>
-              <li>한글 송장 출력</li>
-              <li>쇼피 프리디클레어</li>
-              <li>수동 재고 차감 발주리스트</li>
-              <li>운영 분석 리포트</li>
-            </ul>
-            <a class="button button-green plan-button plan-button-primary" href="<%= loginUrl %>">플랜 선택하기</a>
+          <article class="price-card pc-card">
+            <h3 class="pc-name">Basic</h3>
+            <div class="pc-price-row"><span class="price pc-price"><span>월</span> 70,000원</span><em class="pc-vat">(VAT 별도)</em></div>
+            <p class="pc-desc">본격적으로 성장하는 셀러를 위한 플랜</p>
+            <div class="pc-infobox">
+              <div><div class="pc-info-label">지원 플랫폼</div><div class="pc-info-value">Shopee 8개국</div></div>
+              <div><div class="pc-info-label">주문수집</div><div class="pc-info-value">무제한</div></div>
+            </div>
+            <div class="pc-featurebox">
+              <div class="pc-features-header">포함 기능</div>
+              <ul class="pc-features">
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>통합 대시보드</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>실시간 주문 수집</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>통합 주문 처리</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>한글 송장 출력</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>쇼피 프리디클레어</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>수동 재고 차감 발주리스트</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>운영 분석 리포트</span></li>
+              </ul>
+            </div>
+            <a class="pc-cta pc-cta-primary" href="<%= loginUrl %>"><span>플랜 선택하기</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
           </article>
 
-          <article class="price-card">
-            <h3>Pro</h3>
-            <div class="price"><span>월</span> 150,000원 <em>VAT 별도</em></div>
-            <p>다음 단계로 도약하는 셀러를 위한 플랜</p>
-            <dl>
-              <div><dt>지원 플랫폼</dt><dd>Shopee 8개국</dd></div>
-              <div><dt>주문수집</dt><dd>무제한</dd></div>
-            </dl>
-            <ul>
-              <li>통합 대시보드</li>
-              <li>실시간 주문 수집</li>
-              <li>통합 주문 처리</li>
-              <li>한글 송장 출력</li>
-              <li>쇼피 프리디클레어</li>
-              <li class="plus">실시간 재고 연동</li>
-              <li class="plus highlight">SKU 통합 재고 관리</li>
-              <li class="plus">자동 재고 차감 발주리스트</li>
-              <li>운영 분석 리포트</li>
-              <li class="plus">부가세신고자료 원클릭 다운로드</li>
-            </ul>
-            <a class="button button-green plan-button plan-button-primary" href="<%= loginUrl %>">플랜 선택하기</a>
+          <article class="price-card pc-card">
+            <h3 class="pc-name">Pro</h3>
+            <div class="pc-price-row"><span class="price pc-price"><span>월</span> 150,000원</span><em class="pc-vat">(VAT 별도)</em></div>
+            <p class="pc-desc">다음 단계로 도약하는 셀러를 위한 플랜</p>
+            <div class="pc-infobox">
+              <div><div class="pc-info-label">지원 플랫폼</div><div class="pc-info-value">Shopee 8개국</div></div>
+              <div><div class="pc-info-label">주문수집</div><div class="pc-info-value">무제한</div></div>
+            </div>
+            <div class="pc-featurebox">
+              <div class="pc-features-header">포함 기능</div>
+              <ul class="pc-features">
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>통합 대시보드</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>실시간 주문 수집</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>통합 주문 처리</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>한글 송장 출력</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>쇼피 프리디클레어</span></li>
+                <li><svg class="plus" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg><span>실시간 재고 연동</span></li>
+                <li><svg class="plus" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg><strong>SKU 통합 재고 관리</strong></li>
+                <li><svg class="plus" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg><span>자동 재고 차감 발주리스트</span></li>
+                <li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg><span>운영 분석 리포트</span></li>
+                <li><svg class="plus" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg><span>부가세신고자료 원클릭 다운로드</span></li>
+              </ul>
+            </div>
+            <a class="pc-cta pc-cta-primary" href="<%= loginUrl %>"><span>플랜 선택하기</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
           </article>
         </div>
 
-        <div class="addon">
+        <div class="addon addon-card">
           <div class="addon-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24">
-              <path d="M8.5 12.5 12 16l3.5-3.5" />
-              <path d="M12 16 6.6 10.6a3.6 3.6 0 0 1 0-5.1 3.6 3.6 0 0 1 5.1 0l.3.3.3-.3a3.6 3.6 0 0 1 5.1 5.1L12 16Z" />
-              <path d="m7.5 13.5 2.1 2.1a3.4 3.4 0 0 0 4.8 0l2.1-2.1" />
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+              <path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66" />
+              <path d="m18 15-2-2" />
+              <path d="m15 18-2-2" />
             </svg>
           </div>
-          <div class="addon-copy">
-            <strong>Lazada 추가</strong>
-            <p>Lazada 옵션을 추가해 사용 중인 플랜과 동일한 기능으로 Lazada를 연동할 수 있습니다.<br />유료 플랜(Basic/Pro) 구독자 전용 서비스</p>
+          <div class="addon-copy addon-body">
+            <strong class="addon-title">Lazada 추가</strong>
+            <p class="addon-desc">Lazada 옵션을 추가해 사용 중인 플랜과 동일한 기능으로 <strong>Lazada</strong>를 연동할 수 있습니다.<span class="addon-eligible">유료 플랜(Basic/Pro) 구독자 전용 서비스</span></p>
           </div>
-          <div class="addon-price">
-            <span>ADD-ON</span>
-            <strong>월 30,000원</strong>
-            <em>(VAT 별도)</em>
+          <div class="addon-price-box">
+            <span class="addon-badge">ADD-ON</span>
+            <strong class="addon-price">월 30,000원</strong>
+            <em class="addon-vat">(VAT 별도)</em>
           </div>
         </div>
       </div>
