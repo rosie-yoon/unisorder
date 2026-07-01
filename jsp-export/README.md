@@ -1,6 +1,6 @@
 # UnisOrder JSP Landing Export
 
-이 디렉터리는 Vercel/Next.js에 올라간 유니스오더 랜딩 화면을 기존 JSP 서버에 전달하기 위한 정적 JSP 패키지입니다.
+이 디렉터리는 유니스오더 랜딩 화면을 기존 JSP 서버에 전달하기 위한 정적 JSP 패키지입니다. React/Next.js 변환본이 아니라 JSP, CSS, JS 기준으로 새로 작성한 랜딩입니다.
 
 ## 구성
 
