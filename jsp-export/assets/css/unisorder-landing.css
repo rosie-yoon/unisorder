@@ -384,7 +384,7 @@ button { font: inherit; }
   position: absolute;
   left: 28px;
   right: 28px;
-  top: 30px;
+  top: 84px;
   z-index: 4;
   text-align: center;
 }
@@ -411,7 +411,7 @@ button { font: inherit; }
   position: absolute;
   left: 28px;
   right: 28px;
-  top: 98px;
+  top: 28px;
   z-index: 3;
   display: flex;
   align-items: flex-start;
@@ -424,9 +424,9 @@ button { font: inherit; }
 .feature-card-grid::-webkit-scrollbar { display: none; }
 .feature-slide {
   position: absolute;
-  inset: 154px 24px 24px;
+  inset: 158px 24px 24px;
   width: calc(100% - 48px);
-  height: calc(100% - 178px);
+  height: calc(100% - 182px);
   object-fit: contain;
   object-position: top center;
   opacity: 0;
@@ -442,8 +442,8 @@ button { font: inherit; }
 }
 .feature-slide.tax {
   width: calc(100% - 10px);
-  height: calc(100% - 150px);
-  inset: 145px 5px 5px;
+  height: calc(100% - 154px);
+  inset: 149px 5px 5px;
   object-fit: cover;
   object-position: top center;
 }
@@ -823,20 +823,20 @@ button { font: inherit; }
   .feature-showcase-copy {
     left: 16px;
     right: 16px;
-    top: 20px;
+    top: 66px;
   }
   .feature-showcase-copy h3 {
     font-size: 23px;
   }
   .feature-slide {
-    inset: 130px 12px 12px;
+    inset: 126px 12px 12px;
     width: calc(100% - 24px);
-    height: calc(100% - 142px);
+    height: calc(100% - 138px);
   }
   .feature-card-grid {
     left: 12px;
     right: 12px;
-    top: 76px;
+    top: 16px;
     justify-content: flex-start;
     gap: 5px;
   }
