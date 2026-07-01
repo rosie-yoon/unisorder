@@ -20,11 +20,6 @@
 <body>
   <a class="skip-link" href="#main">본문 바로가기</a>
 
-  <div class="notice-bar">
-    <strong>Shopee·Lazada 2개 플랫폼 8개국 운영 통합</strong>
-    <span>주문, 재고, 발주, 마진 분석까지 한 화면에서 정리하세요</span>
-  </div>
-
   <header class="site-header">
     <div class="shell header-inner">
       <a class="brand" href="/" aria-label="UnisOrder 홈">
@@ -33,7 +28,7 @@
 
       <nav class="desktop-nav" aria-label="주요 메뉴">
         <a href="#features">기능</a>
-        <a href="#stories">성장사례</a>
+        <a href="#use-cases">활용사례</a>
         <a href="#pricing">이용요금</a>
         <a href="<%= guideUrl %>">이용가이드</a>
       </nav>
@@ -47,7 +42,7 @@
         <summary aria-label="메뉴 열기">메뉴</summary>
         <div class="mobile-panel">
           <a href="#features">기능</a>
-          <a href="#stories">성장사례</a>
+          <a href="#use-cases">활용사례</a>
           <a href="#pricing">이용요금</a>
           <a href="<%= guideUrl %>">이용가이드</a>
           <a href="<%= loginUrl %>">로그인</a>
@@ -60,12 +55,8 @@
   <main id="main">
     <section class="hero">
       <div class="shell hero-shell">
-        <p class="hero-kicker">해외 역직구 전문 셀러들의<br class="mobile-break" /> 실운영 노하우를 담은<br class="mobile-break" /> 크로스보더 셀러 플랫폼</p>
-        <h1>주문 처리에<br /><span>운영 시간을<br class="mobile-break" /> 빼앗기지 마세요</span></h1>
-        <p class="hero-copy">
-          주문이 늘어날수록 상품 확인, 송장 출력,<br class="mobile-break" /> 재고 확인에 많은 시간이 들어갑니다.
-          유니스오더는 주문부터 재고,<br class="mobile-break" /> 마진까지 한곳에 모아<br class="mobile-break" /> 운영 시간을 줄여줍니다.
-        </p>
+        <p class="hero-kicker">글로벌 전문 셀러들의 노하우를 담은 크로스보더 플랫폼</p>
+        <h1>주문부터 재고,<br /><span>마진 관리까지 원스톱 처리</span></h1>
         <div class="hero-actions">
           <a class="button button-green button-large" href="<%= loginUrl %>">무료로 시작하기</a>
           <a class="button button-dark button-large" href="<%= guideUrl %>">이용 가이드 보기</a>
@@ -73,37 +64,40 @@
       </div>
 
       <div class="shell product-stage" aria-label="유니스오더 제품 화면">
-        <div class="desktop-frame">
-          <div class="frame-top">
-            <span></span><span></span><span></span>
-            <strong>UNISORDER Dashboard</strong>
-          </div>
+        <div class="desktop-frame main-frame">
           <img src="<%= assetPath %>/images/product/unisorder-dashboard.png" alt="유니스오더 통합 대시보드 화면" />
         </div>
-        <div class="mobile-frame" aria-hidden="true">
-          <div class="phone-head"></div>
-          <img src="<%= assetPath %>/images/product/features/order-processing.png" alt="" />
-        </div>
-        <div class="stage-note">
-          <strong>오늘 처리할 주문</strong>
-          <span>국가별·샵별 주문 흐름을 한 번에 확인</span>
+        <div class="desktop-frame order-frame">
+          <img src="<%= assetPath %>/images/product/features/order-processing.png" alt="유니스오더 통합 주문관리 화면" />
         </div>
       </div>
     </section>
 
-    <section class="quote-strip">
+    <section id="use-cases" class="quote-strip" aria-label="활용사례">
+      <div class="shell case-head">
+        <h2>처음 시작하는 셀러님도, 베테랑 셀러님도<br />유니스오더와 함께 한 걸음 더 성장할 수 있습니다.</h2>
+      </div>
       <div class="shell quote-grid">
         <article>
-          <p>“샵이 늘어나면서 주문 확인보다<br class="mobile-break" /> 정리에 더 많은 시간이<br class="mobile-break" /> 들기 시작했어요.”</p>
-          <span>6개국 12개샵 운영 셀러 · M 셀러님</span>
+          <p>“재고와 주문이 통합 관리되어<br />샵을 확장할 수 있었고,<br />플랫폼도 확장할 계획이에요”</p>
+          <div class="case-profile">
+            <span class="case-avatar">M</span>
+            <span><strong>M 셀러</strong><em>Shopee 2년차</em></span>
+          </div>
         </article>
         <article>
-          <p>“사무실에 있지 않아도 주문 흐름을<br class="mobile-break" /> 놓치지 않는 게 가장 컸어요.”</p>
-          <span>4년차 장기 운영 셀러 · J 셀러님</span>
+          <p>“재고관리와 발주 시스템이 있어<br />해외여행도 가능했어요”</p>
+          <div class="case-profile">
+            <span class="case-avatar">J</span>
+            <span><strong>J 셀러</strong><em>Shopee, Lazada 6년차</em></span>
+          </div>
         </article>
         <article>
-          <p>“주문이 늘어도 혼자 운영할 수 있다는<br class="mobile-break" /> 확신이 생겼습니다.”</p>
-          <span>6개월차 투잡 셀러 · R 셀러님</span>
+          <p>“한글 송장과 발주 시스템으로<br />회사를 다니면서도 혼자<br />운영할 수 있었어요”</p>
+          <div class="case-profile">
+            <span class="case-avatar">R</span>
+            <span><strong>R 셀러</strong><em>Shopee 5개월차</em></span>
+          </div>
         </article>
       </div>
     </section>
@@ -111,8 +105,8 @@
     <section class="problem-section">
       <div class="shell split-section">
         <div class="section-copy">
-          <h2>주문은 늘어나는데,<br />운영 흐름은 계속 끊기고 있나요?</h2>
-          <p>반복 업무가 늘어날수록 셀러가 집중해야 할 제품 소싱과 마케팅 시간은 줄어듭니다.</p>
+          <h2>주문은 늘어나는데,<br />제자리 걸음 중인 것<br />같지 않으신가요?</h2>
+          <p>반복 업무가 늘어날수록 셀러가 집중해야 할<br />제품 소싱과 마케팅 시간은 줄어듭니다.</p>
         </div>
         <div class="problem-list">
           <article>
@@ -144,88 +138,92 @@
       <div class="shell">
         <div class="center-head">
           <h2>글로벌 셀러들을 위한 올인원 솔루션</h2>
-          <p>클릭하면 실제 유니스오더 화면과 함께 핵심 기능을 확인할 수 있습니다.</p>
         </div>
 
-        <div class="feature-layout">
-          <div class="feature-tabs" role="tablist" aria-label="기능 목록">
-            <button class="feature-tab active" type="button" data-feature-index="0">통합 대시보드</button>
-            <button class="feature-tab" type="button" data-feature-index="1">통합 주문처리</button>
-            <button class="feature-tab" type="button" data-feature-index="2">한글 송장</button>
-            <button class="feature-tab" type="button" data-feature-index="3">재고·발주</button>
-            <button class="feature-tab" type="button" data-feature-index="4">마진 분석</button>
-            <button class="feature-tab" type="button" data-feature-index="5">부가세신고 자료</button>
-          </div>
-
-          <div class="feature-detail">
+        <div class="feature-stack">
+          <article class="feature-row">
             <div class="feature-text">
-              <h3 id="feature-title">2개 플랫폼 8개국 주문을<br />한 화면에서</h3>
-              <p id="feature-description">국가별·샵별로 흩어진 주문 현황을 한 번에 확인하고<br />오늘 처리할 업무 흐름을 정리합니다.</p>
-              <ul id="feature-points">
+              <h3>2개 플랫폼 8개국 주문을<br />한 화면에서</h3>
+              <p>국가별·샵별로 흩어진 주문 현황을 한 번에 확인하고 오늘 처리할 업무 흐름을 정리합니다.</p>
+              <ul>
                 <li>Shopee·Lazada 통합 현황 조회</li>
                 <li>발송 대기·처리중·취소·반품 상태 확인</li>
-                <li>TOP 5 판매 상품 현황 확인</li>
               </ul>
             </div>
-            <div class="feature-visual">
-              <img class="feature-image active" data-feature-image="0" src="<%= assetPath %>/images/product/unisorder-dashboard.png" alt="통합 대시보드 화면" />
-              <img class="feature-image" data-feature-image="1" src="<%= assetPath %>/images/product/features/order-processing.png" alt="통합 주문처리 화면" />
-              <img class="feature-image" data-feature-image="2" src="<%= assetPath %>/images/product/features/korean-invoice.png" alt="한글 송장 화면" />
-              <img class="feature-image" data-feature-image="3" src="<%= assetPath %>/images/product/features/inventory-purchase.png" alt="재고 발주 화면" />
-              <img class="feature-image" data-feature-image="4" src="<%= assetPath %>/images/product/features/margin-analysis.png" alt="마진 분석 화면" />
-              <img class="feature-image" data-feature-image="5" src="<%= assetPath %>/images/product/features/tax-report.png" alt="부가세신고 자료 화면" />
+            <div class="feature-shot">
+              <img src="<%= assetPath %>/images/product/unisorder-dashboard.png" alt="통합 대시보드 화면" />
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
+          </article>
 
-    <section id="stories" class="stories-section">
-      <div class="shell split-section story-split">
-        <div class="section-copy">
-          <h2>운영이 단순해지면<br />성장할 공간이 생깁니다</h2>
-          <p>반복 업무에 묶여 있던 시간이 줄어들수록, 상품과 전략에 집중할 수 있는 시간은 늘어납니다.</p>
-          <div class="story-controls">
-            <button class="story-dot active" type="button" data-story-index="0" aria-label="첫 번째 성장사례"></button>
-            <button class="story-dot" type="button" data-story-index="1" aria-label="두 번째 성장사례"></button>
-            <button class="story-dot" type="button" data-story-index="2" aria-label="세 번째 성장사례"></button>
-            <button class="story-next" type="button" aria-label="다음 성장사례">→</button>
-          </div>
-        </div>
+          <article class="feature-row reverse">
+            <div class="feature-text">
+              <h3>반복 확인 없이<br />주문 처리 흐름을 빠르게</h3>
+              <p>상품 확인, SKU 매칭, 송장 출력처럼 반복되는 주문 업무를 한 화면에서 이어갑니다.</p>
+              <ul>
+                <li>실시간 주문 수집과 상태 동기화</li>
+                <li>처리 누락과 중복 작업 감소</li>
+              </ul>
+            </div>
+            <div class="feature-shot">
+              <img src="<%= assetPath %>/images/product/features/order-processing.png" alt="통합 주문처리 화면" />
+            </div>
+          </article>
 
-        <div class="story-window" data-story-slider>
-          <div class="story-track">
-            <article class="story-card">
-              <p class="seller-meta">6개국 12개샵 운영 셀러</p>
-              <h3>M 셀러님</h3>
-              <blockquote>“샵이 늘어나면서 주문 확인보다 정리에 더 많은 시간이 들기 시작했어요.”</blockquote>
-              <strong>국가별 주문과 재고를 한곳에서 확인해 발주·포장 흐름을 단순화했습니다</strong>
-              <div class="before-after">
-                <p><span>Before</span>샵별로 주문을 따로 확인하고 재고를 수기로 맞추느라 반복 정리에 많은 시간이 쓰였습니다.</p>
-                <p><span>After</span>통합 화면에서 주문과 재고를 함께 확인하면서 상품 확장과 판매 전략에 더 집중할 수 있었습니다.</p>
-              </div>
-            </article>
-            <article class="story-card">
-              <p class="seller-meta">4년차 장기 운영 셀러</p>
-              <h3>J 셀러님</h3>
-              <blockquote>“사무실에 있지 않아도 주문 흐름을 놓치지 않는 게 가장 컸어요.”</blockquote>
-              <strong>외부에서도 발주 타이밍을 놓치지 않고 주문 흐름을 유지했습니다</strong>
-              <div class="before-after">
-                <p><span>Before</span>자리를 비우거나 여행 중일 때 발주 타이밍을 놓칠까 봐 개인 일정을 쉽게 잡기 어려웠습니다.</p>
-                <p><span>After</span>외부에서도 주문 확인과 발주가 가능해져 장소에 얽매이지 않는 운영 구조를 만들 수 있었습니다.</p>
-              </div>
-            </article>
-            <article class="story-card">
-              <p class="seller-meta">6개월차 투잡 셀러</p>
-              <h3>R 셀러님</h3>
-              <blockquote>“주문이 늘어나는 건 좋은데, 혼자 감당할 수 있을지가 제일 걱정이었어요.”</blockquote>
-              <strong>한글 송장과 발주 시스템으로 주문이 늘어도 혼자 운영할 수 있었습니다</strong>
-              <div class="before-after">
-                <p><span>Before</span>외국어 상품명 확인과 송장 준비에 퇴근 후 시간이 빠르게 사라져 혼자 감당하기 어렵게 느껴졌습니다.</p>
-                <p><span>After</span>한글 송장으로 상품 확인 시간을 줄이고 발주 흐름을 단순화해, 추가 인력 없이 투잡 운영을 이어갈 수 있었습니다.</p>
-              </div>
-            </article>
-          </div>
+          <article class="feature-row">
+            <div class="feature-text">
+              <h3>외국어 상품 정보를<br />한글로 정확하게</h3>
+              <p>8개국 언어로 표시되는 상품명과 옵션을 발주·포장 단계에서 확인하기 쉬운 형태로 정리합니다.</p>
+              <ul>
+                <li>한글 송장 출력</li>
+                <li>오포장과 오출고 리스크 감소</li>
+              </ul>
+            </div>
+            <div class="feature-shot compact">
+              <img src="<%= assetPath %>/images/product/features/korean-invoice.png" alt="한글 송장 화면" />
+            </div>
+          </article>
+
+          <article class="feature-row reverse">
+            <div class="feature-text">
+              <h3>빠르고 정확한<br />발주와 입고관리</h3>
+              <p>SKU 기준으로 주문과 재고 흐름을 연결해 반복 발주와 입고 현황을 점검합니다.</p>
+              <ul>
+                <li>SKU 기반 재고 관리</li>
+                <li>발주 판단에 필요한 수량 정리</li>
+              </ul>
+            </div>
+            <div class="feature-shot">
+              <img src="<%= assetPath %>/images/product/features/inventory-purchase.png" alt="재고 발주 화면" />
+            </div>
+          </article>
+
+          <article class="feature-row">
+            <div class="feature-text">
+              <h3>상품별 실제 수익성을<br />바로 확인</h3>
+              <p>매입가, 판매가, 정산 흐름을 연결해 상품의 수익 및 마진을 빠르게 파악합니다.</p>
+              <ul>
+                <li>상품별 마진 추적</li>
+                <li>환율·매입가 기준 수익 확인</li>
+              </ul>
+            </div>
+            <div class="feature-shot">
+              <img src="<%= assetPath %>/images/product/features/margin-analysis.png" alt="마진 분석 화면" />
+            </div>
+          </article>
+
+          <article class="feature-row reverse">
+            <div class="feature-text">
+              <h3>8개국 주문 및 정산내역<br />원클릭 다운로드</h3>
+              <p>부가세신고자료와 소포수령증 발급에 필요한 문서를 클릭 한 번으로 내려받습니다.</p>
+              <ul>
+                <li>완료 주문내역 엑셀 파일 제공</li>
+                <li>정산 내역 PDF 파일 제공</li>
+              </ul>
+            </div>
+            <div class="feature-shot">
+              <img src="<%= assetPath %>/images/product/features/tax-report.png" alt="부가세신고 자료 화면" />
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -303,9 +301,16 @@
         </div>
 
         <div class="addon">
-          <strong>Lazada 추가</strong>
-          <p>Lazada 옵션을 추가해 사용 중인 플랜과 동일한 기능으로 Lazada를 연동할 수 있습니다. 유료 플랜(Basic/Pro) 구독자 전용 서비스</p>
-          <span>월 30,000원 <em>VAT 별도</em></span>
+          <div class="addon-icon" aria-hidden="true">♡</div>
+          <div class="addon-copy">
+            <strong>Lazada 추가</strong>
+            <p>Lazada 옵션을 추가해 사용 중인 플랜과 동일한 기능으로 Lazada를 연동할 수 있습니다.<br />유료 플랜(Basic/Pro) 구독자 전용 서비스</p>
+          </div>
+          <div class="addon-price">
+            <span>ADD-ON</span>
+            <strong>월 30,000원</strong>
+            <em>(VAT 별도)</em>
+          </div>
         </div>
       </div>
     </section>
@@ -317,7 +322,7 @@
         <a href="/" aria-label="UnisOrder 홈"><img src="<%= assetPath %>/images/brand/unis-logo.png" alt="UnisOrder" /></a>
         <nav>
           <a href="#features">기능</a>
-          <a href="#stories">성장사례</a>
+          <a href="#use-cases">활용사례</a>
           <a href="#pricing">이용요금</a>
           <a href="<%= guideUrl %>">이용가이드</a>
           <a href="<%= privacyUrl %>">개인정보처리방침</a>
