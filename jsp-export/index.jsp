@@ -141,38 +141,56 @@
         </div>
 
         <div class="feature-showcase" data-feature-showcase>
-          <div class="feature-screen" aria-live="polite">
+          <div class="feature-tab-wrap">
             <div class="feature-card-grid" role="tablist" aria-label="기능 화면 선택">
-              <button class="feature-card active" type="button" data-feature-index="0" data-title="2개 플랫폼 8개국 주문을 한 화면에서">
+              <button class="feature-card active tone-sky" type="button" data-feature-index="0" data-title="2개 플랫폼 8개국 주문을|한 화면에서" data-description="국가별·샵별로 흩어진 주문 현황을 한 번에 확인하고|오늘 처리할 업무 흐름을 정리합니다." data-bullets="Shopee·Lazada 통합 현황 조회|발송 대기·처리중·취소·반품 상태 확인|TOP 5 판매 상품 현황 확인">
+                <span class="feature-card-icon"><svg viewBox="0 0 24 24"><path d="M8 5h8M9 3h6v4H9zM6 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1M8 12h.01M12 12h6M8 16h.01M12 16h6"/></svg></span>
                 <strong>통합 대시보드</strong>
               </button>
-              <button class="feature-card" type="button" data-feature-index="1" data-title="반복 확인 없이 주문 처리를 빠르고 정확하게">
+              <button class="feature-card tone-emerald" type="button" data-feature-index="1" data-title="통합 페이지에서 반복 확인 없이 주문 처리 흐름을 빠르게" data-description="상품 확인, SKU 매칭, 송장 출력처럼 반복 업무를 한 화면에서 이어갑니다." data-bullets="실시간 주문 수집과 상태 동기화|상품·옵션 기준 주문 확인|처리 누락과 중복 작업 감소">
+                <span class="feature-card-icon"><svg viewBox="0 0 24 24"><path d="m21 8-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="m7.5 10.5 9-5"/><path d="m9.5 17 2 2 4-5"/></svg></span>
                 <strong>통합 주문처리</strong>
               </button>
-              <button class="feature-card" type="button" data-feature-index="2" data-title="외국어 상품 정보를 한글로 정확하게">
+              <button class="feature-card tone-violet" type="button" data-feature-index="2" data-title="외국어 상품 정보를|한글로 정확하게" data-description="8개국 언어로 표시되는 상품명과 옵션을 발주·포장 단계에서|확인하기 쉬운 형태로 정리합니다." data-bullets="한글 송장 출력|상품명·옵션 확인 시간 단축|오포장과 오출고 리스크 감소">
+                <span class="feature-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg></span>
                 <strong>한글 송장</strong>
               </button>
-              <button class="feature-card" type="button" data-feature-index="3" data-title="빠르고 정확한 발주와 입고관리">
+              <button class="feature-card tone-amber" type="button" data-feature-index="3" data-title="빠르고 정확한 발주와 입고관리" data-description="SKU 기준으로 주문과 재고 흐름을 연결해 반복 발주와 입고 현황을 점검하여 효율화를 높입니다." data-bullets="SKU 기반 재고 관리|재고 부족 상품 확인|발주 판단에 필요한 수량 정리">
+                <span class="feature-card-icon"><svg viewBox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg></span>
                 <strong>재고·발주</strong>
               </button>
-              <button class="feature-card" type="button" data-feature-index="4" data-title="상품별 실제 수익성을 바로 확인">
+              <button class="feature-card tone-indigo" type="button" data-feature-index="4" data-title="상품별 실제 수익성을 바로 확인" data-description="매입가, 판매가, 정산 흐름을 연결해|상품의 수익 및 마진을 빠르게 파악합니다." data-bullets="상품별 마진 추적|환율·매입가 기준 수익 확인|판매가격 점검 상품 구분">
+                <span class="feature-card-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16V9M12 16V5M17 16v-3"/></svg></span>
                 <strong>마진 분석</strong>
               </button>
-              <button class="feature-card" type="button" data-feature-index="5" data-title="8개국 주문 및 정산내역 원클릭 다운로드">
+              <button class="feature-card tone-rose" type="button" data-feature-index="5" data-title="8개국 주문 및 정산내역|원클릭 다운로드" data-description="부가세신고자료와 소포수령증 발급에 필요한 문서를|클릭 한 번으로 내려받습니다." data-bullets="완료 주문내역 엑셀 파일 제공|정산 내역 PDF 파일 제공">
+                <span class="feature-card-icon"><svg viewBox="0 0 24 24"><path d="M6 2h12v20l-2-1-2 1-2-1-2 1-2-1-2 1z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></span>
                 <strong>부가세신고 자료</strong>
               </button>
             </div>
+          </div>
 
+          <div class="feature-detail">
             <div class="feature-showcase-copy">
               <h3 id="feature-title">2개 플랫폼 8개국 주문을 한 화면에서</h3>
+              <p id="feature-description">국가별·샵별로 흩어진 주문 현황을 한 번에 확인하고<br />오늘 처리할 업무 흐름을 정리합니다.</p>
+              <div class="feature-bullets" id="feature-bullets">
+                <div><span class="bullet-icon tone-sky">◌</span><p>Shopee·Lazada 통합 현황 조회</p></div>
+                <div><span class="bullet-icon tone-emerald">↻</span><p>발송 대기·처리중·취소·반품 상태 확인</p></div>
+                <div><span class="bullet-icon tone-amber">□</span><p>TOP 5 판매 상품 현황 확인</p></div>
+              </div>
             </div>
 
-            <img class="feature-slide active" data-feature-slide="0" src="<%= assetPath %>/images/product/unisorder-dashboard.png" alt="통합 대시보드 화면" />
-            <img class="feature-slide" data-feature-slide="1" src="<%= assetPath %>/images/product/features/order-processing.png" alt="통합 주문처리 화면" />
-            <img class="feature-slide portrait" data-feature-slide="2" src="<%= assetPath %>/images/product/features/korean-invoice.png" alt="한글 송장 화면" />
-            <img class="feature-slide" data-feature-slide="3" src="<%= assetPath %>/images/product/features/inventory-purchase.png" alt="재고 발주 화면" />
-            <img class="feature-slide" data-feature-slide="4" src="<%= assetPath %>/images/product/features/margin-analysis.png" alt="마진 분석 화면" />
-            <img class="feature-slide tax" data-feature-slide="5" src="<%= assetPath %>/images/product/features/tax-report.png" alt="부가세신고 자료 화면" />
+            <div class="feature-screen" aria-live="polite">
+              <div class="feature-image-frame">
+                <img class="feature-slide active" data-feature-slide="0" src="<%= assetPath %>/images/product/unisorder-dashboard.png" alt="통합 대시보드 화면" />
+                <img class="feature-slide" data-feature-slide="1" src="<%= assetPath %>/images/product/features/order-processing.png" alt="통합 주문처리 화면" />
+                <img class="feature-slide portrait" data-feature-slide="2" src="<%= assetPath %>/images/product/features/korean-invoice.png" alt="한글 송장 화면" />
+                <img class="feature-slide" data-feature-slide="3" src="<%= assetPath %>/images/product/features/inventory-purchase.png" alt="재고 발주 화면" />
+                <img class="feature-slide" data-feature-slide="4" src="<%= assetPath %>/images/product/features/margin-analysis.png" alt="마진 분석 화면" />
+                <img class="feature-slide tax" data-feature-slide="5" src="<%= assetPath %>/images/product/features/tax-report.png" alt="부가세신고 자료 화면" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
