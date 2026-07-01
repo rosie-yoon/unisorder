@@ -14,6 +14,8 @@
   });
 
   var showcase = document.querySelector("[data-feature-showcase]");
+  var featureIndex = 0;
+  var featureTimer;
   var bulletToneSets = [
     ["tone-sky", "tone-emerald", "tone-amber"],
     ["tone-emerald", "tone-sky", "tone-violet"],
@@ -60,6 +62,7 @@
     var card = cards[index];
     if (!card) return;
 
+    featureIndex = index;
     cards.forEach(function (item) {
       var isActive = Number(item.dataset.featureIndex) === index;
       item.classList.toggle("active", isActive);
@@ -73,13 +76,32 @@
     renderBullets(bullets, card.dataset.bullets, index);
   }
 
+  function stopFeatureTimer() {
+    if (featureTimer) window.clearInterval(featureTimer);
+  }
+
+  function startFeatureTimer() {
+    if (!showcase || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    stopFeatureTimer();
+    featureTimer = window.setInterval(function () {
+      var count = showcase.querySelectorAll(".feature-card").length;
+      setFeature((featureIndex + 1) % count);
+    }, 4600);
+  }
+
   if (showcase) {
     showcase.querySelectorAll(".feature-card").forEach(function (card) {
       card.addEventListener("click", function () {
         setFeature(Number(card.dataset.featureIndex));
+        startFeatureTimer();
       });
     });
+    showcase.addEventListener("mouseenter", stopFeatureTimer);
+    showcase.addEventListener("mouseleave", startFeatureTimer);
+    showcase.addEventListener("focusin", stopFeatureTimer);
+    showcase.addEventListener("focusout", startFeatureTimer);
     setFeature(0);
+    startFeatureTimer();
   }
 
   document.querySelectorAll(".mobile-panel a").forEach(function (link) {
