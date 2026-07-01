@@ -681,23 +681,36 @@ button { font: inherit; }
 }
 .price-card li::before {
   content: "✓";
-  display: grid;
-  width: 15px;
-  height: 15px;
+  display: block;
+  width: 18px;
+  height: 18px;
   flex: 0 0 auto;
-  place-items: center;
-  margin-top: 2px;
-  border: 1.5px solid var(--green);
-  border-radius: 999px;
+  margin-top: 1px;
+  border: 0;
+  border-radius: 0;
   color: var(--green);
-  font-size: 10px;
-  line-height: 1;
+  font-size: 18px;
+  line-height: 18px;
   font-weight: 1000;
+  text-align: center;
 }
 .price-card li.plus::before {
   content: "+";
+  display: grid;
+  width: 16px;
+  height: 16px;
+  place-items: center;
+  margin-top: 2px;
+  border: 1.5px solid var(--blue);
+  border-radius: 999px;
   border-color: var(--blue);
   color: var(--blue);
+  font-size: 12px;
+  line-height: 1;
+}
+.price-card li.highlight {
+  color: #1f2f46;
+  font-weight: 1000;
 }
 .plan-button {
   width: 100%;
@@ -707,6 +720,10 @@ button { font: inherit; }
   border-radius: 6px;
   color: #111827;
   font-size: 14px;
+}
+.plan-button-primary {
+  border-color: transparent;
+  color: #ffffff;
 }
 .addon {
   display: grid;
@@ -725,11 +742,19 @@ button { font: inherit; }
   height: 50px;
   place-items: center;
   border: 1px solid #cfe0ff;
-  border-radius: 8px;
+  border-radius: 14px;
   background: #f4f8ff;
   color: #2563ff;
-  font-size: 28px;
-  font-weight: 1000;
+}
+.addon-icon svg {
+  display: block;
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .addon-copy strong {
   display: block;

@@ -241,7 +241,7 @@
               <li>수동 재고 차감 발주리스트</li>
               <li>운영 분석 리포트</li>
             </ul>
-            <a class="button button-light plan-button" href="<%= loginUrl %>">플랜 선택하기</a>
+            <a class="button button-green plan-button plan-button-primary" href="<%= loginUrl %>">플랜 선택하기</a>
           </article>
 
           <article class="price-card">
@@ -259,17 +259,23 @@
               <li>한글 송장 출력</li>
               <li>쇼피 프리디클레어</li>
               <li class="plus">실시간 재고 연동</li>
-              <li class="plus">SKU 통합 재고 관리</li>
+              <li class="plus highlight">SKU 통합 재고 관리</li>
               <li class="plus">자동 재고 차감 발주리스트</li>
               <li>운영 분석 리포트</li>
               <li class="plus">부가세신고자료 원클릭 다운로드</li>
             </ul>
-            <a class="button button-light plan-button" href="<%= loginUrl %>">플랜 선택하기</a>
+            <a class="button button-green plan-button plan-button-primary" href="<%= loginUrl %>">플랜 선택하기</a>
           </article>
         </div>
 
         <div class="addon">
-          <div class="addon-icon" aria-hidden="true">♡</div>
+          <div class="addon-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M8.5 12.5 12 16l3.5-3.5" />
+              <path d="M12 16 6.6 10.6a3.6 3.6 0 0 1 0-5.1 3.6 3.6 0 0 1 5.1 0l.3.3.3-.3a3.6 3.6 0 0 1 5.1 5.1L12 16Z" />
+              <path d="m7.5 13.5 2.1 2.1a3.4 3.4 0 0 0 4.8 0l2.1-2.1" />
+            </svg>
+          </div>
           <div class="addon-copy">
             <strong>Lazada 추가</strong>
             <p>Lazada 옵션을 추가해 사용 중인 플랜과 동일한 기능으로 Lazada를 연동할 수 있습니다.<br />유료 플랜(Basic/Pro) 구독자 전용 서비스</p>
