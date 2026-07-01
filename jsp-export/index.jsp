@@ -56,7 +56,7 @@
     <section class="hero">
       <div class="shell hero-shell">
         <p class="hero-kicker">글로벌 전문 셀러들의 노하우를 담은<br class="mobile-only" /> 크로스보더 플랫폼</p>
-        <h1>주문부터 재고,<br /><span>마진 관리까지 원스톱 처리</span></h1>
+        <h1>주문부터 재고,<br class="mobile-only" /><span> 마진 관리까지 원스톱 처리</span></h1>
         <div class="hero-actions">
           <a class="button button-green button-large" href="<%= loginUrl %>">무료로 시작하기</a>
           <a class="button button-dark button-large" href="<%= guideUrl %>">이용 가이드 보기</a>
@@ -144,7 +144,7 @@
           <article class="feature-row">
             <div class="feature-text">
               <h3>2개 플랫폼 8개국 주문을<br />한 화면에서</h3>
-              <p>국가별·샵별로 흩어진 주문 현황을 한 번에 확인하고 오늘 처리할 업무 흐름을 정리합니다.</p>
+              <p>국가별·샵별로 흩어진 주문 현황을 한 번에 확인하고<br />오늘 처리할 업무 흐름을 정리합니다.</p>
               <ul>
                 <li>Shopee·Lazada 통합 현황 조회</li>
                 <li>발송 대기·처리중·취소·반품 상태 확인</li>
@@ -157,14 +157,14 @@
 
           <article class="feature-row reverse">
             <div class="feature-text">
-              <h3>반복 확인 없이<br />주문 처리 흐름을 빠르게</h3>
+              <h3>반복 확인 없이<br />주문 처리를 빠르고 정확하게</h3>
               <p>상품 확인, SKU 매칭, 송장 출력처럼 반복되는 주문 업무를 한 화면에서 이어갑니다.</p>
               <ul>
                 <li>실시간 주문 수집과 상태 동기화</li>
                 <li>처리 누락과 중복 작업 감소</li>
               </ul>
             </div>
-            <div class="feature-shot">
+            <div class="feature-shot feature-shot-scroll">
               <img src="<%= assetPath %>/images/product/features/order-processing.png" alt="통합 주문처리 화면" />
             </div>
           </article>
@@ -192,7 +192,7 @@
                 <li>발주 판단에 필요한 수량 정리</li>
               </ul>
             </div>
-            <div class="feature-shot">
+            <div class="feature-shot feature-shot-scroll">
               <img src="<%= assetPath %>/images/product/features/inventory-purchase.png" alt="재고 발주 화면" />
             </div>
           </article>
@@ -220,7 +220,7 @@
                 <li>정산 내역 PDF 파일 제공</li>
               </ul>
             </div>
-            <div class="feature-shot">
+            <div class="feature-shot feature-shot-tax">
               <img src="<%= assetPath %>/images/product/features/tax-report.png" alt="부가세신고 자료 화면" />
             </div>
           </article>
