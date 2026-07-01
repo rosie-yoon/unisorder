@@ -97,8 +97,8 @@ button { font: inherit; }
   transition: background .16s ease, color .16s ease, transform .16s ease, border-color .16s ease;
 }
 .button:hover { transform: translateY(-1px); }
-.button-green { background: var(--green-dark); color: white; }
-.button-green:hover { background: #064c34; }
+.button-green { background: var(--primary); color: white; }
+.button-green:hover { background: #059669; }
 .button-dark { background: var(--ink); color: white; }
 .button-dark:hover { background: #111827; }
 .button-light { border-color: var(--line); background: white; color: #27374d; }
@@ -137,7 +137,7 @@ button { font: inherit; }
   font-weight: 900;
 }
 .mobile-panel a:hover { background: var(--wash); }
-.mobile-panel .mobile-cta { background: var(--green-dark); color: white; text-align: center; }
+.mobile-panel .mobile-cta { background: var(--primary); color: white; text-align: center; }
 
 .hero {
   position: relative;

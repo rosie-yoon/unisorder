@@ -59,7 +59,7 @@
         <h1>주문부터 재고,<br class="mobile-only" /><span> 마진 관리까지 원스톱 처리</span></h1>
         <div class="hero-actions">
           <a class="button button-green button-large" href="<%= loginUrl %>">무료로 시작하기</a>
-          <a class="button button-dark button-large" href="<%= guideUrl %>">이용 가이드 보기</a>
+          <a class="button button-dark button-large" href="<%= guideUrl %>">이용가이드</a>
         </div>
       </div>
 
