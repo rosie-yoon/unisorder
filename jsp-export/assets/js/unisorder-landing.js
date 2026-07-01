@@ -22,7 +22,6 @@
     var cards = showcase.querySelectorAll(".feature-card");
     var slides = showcase.querySelectorAll(".feature-slide");
     var title = document.getElementById("feature-title");
-    var description = document.getElementById("feature-description");
     var card = cards[index];
     if (!card) return;
 
@@ -36,7 +35,6 @@
       slide.classList.toggle("active", Number(slide.dataset.featureSlide) === index);
     });
     if (title) title.textContent = card.dataset.title || "";
-    if (description) description.textContent = card.dataset.description || "";
   }
 
   function startFeatureTimer() {
