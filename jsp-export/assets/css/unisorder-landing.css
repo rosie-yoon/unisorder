@@ -567,107 +567,162 @@ button { font: inherit; }
   opacity: 1;
 }
 
-.pricing-section { background: #fff; }
+.pricing-section {
+  background: #f5f8fb;
+}
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  gap: 16px;
   margin-top: 46px;
 }
 .price-card {
   display: flex;
-  min-height: 660px;
+  min-height: 754px;
   flex-direction: column;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: white;
-  padding: 30px;
+  border: 1px solid #d7e2ee;
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 26px 24px 24px;
 }
 .price-card p {
-  min-height: 42px;
-  margin: 0;
-  color: #65758b;
+  min-height: 40px;
+  margin: 22px 0 0;
+  color: #40516a;
+  font-size: 15px;
   font-weight: 900;
   line-height: 1.45;
 }
 .price-card h3 {
-  margin: 18px 0 8px;
-  font-size: 32px;
+  margin: 0 0 25px;
+  color: #020617;
+  font-size: 22px;
+  line-height: 1;
   font-weight: 1000;
 }
 .price {
-  min-height: 48px;
-  font-size: 28px;
+  min-height: 42px;
+  color: #020617;
+  font-size: 40px;
+  line-height: 1;
   font-weight: 1000;
+  letter-spacing: -0.035em;
 }
-.price span { font-size: 18px; }
+.price span { font-size: 34px; }
 .price em {
-  margin-left: 6px;
+  margin-left: 7px;
   color: #65758b;
   font-size: 14px;
   font-style: normal;
   font-weight: 900;
+  letter-spacing: 0;
+  vertical-align: middle;
 }
-.price.free { color: var(--green-dark); font-size: 34px; }
+.price.free {
+  color: #020617;
+  font-size: 40px;
+}
 .price-card dl {
   display: grid;
-  gap: 10px;
-  margin: 26px 0;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  overflow: hidden;
+  margin: 30px 0 24px;
+  border: 1px solid #dbe5ef;
+  border-radius: 6px;
+  background: #f8fafc;
 }
 .price-card dl div {
-  display: flex;
-  justify-content: space-between;
-  gap: 14px;
-  border: 1px solid #e4eee9;
-  border-radius: 10px;
-  background: #f8fcfa;
-  padding: 13px 14px;
+  display: block;
+  min-height: 64px;
+  padding: 13px 13px 12px;
 }
-.price-card dt { color: #748296; font-size: 13px; font-weight: 950; }
-.price-card dd { margin: 0; color: #203149; font-size: 14px; font-weight: 1000; }
+.price-card dl div + div {
+  border-left: 1px solid #dbe5ef;
+}
+.price-card dt {
+  color: #66758c;
+  font-size: 12px;
+  font-weight: 1000;
+}
+.price-card dd {
+  margin: 8px 0 0;
+  color: #020617;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 1000;
+}
 .price-card ul {
   display: grid;
+  align-content: start;
   gap: 12px;
-  min-height: 270px;
-  margin: 0 0 28px;
-  padding: 0;
+  min-height: 356px;
+  margin: 0 0 24px;
+  border: 1px solid #dbe5ef;
+  border-radius: 6px;
+  padding: 20px 17px;
   list-style: none;
+}
+.price-card ul::before {
+  content: "포함 기능";
+  margin-bottom: 2px;
+  color: #1f2f46;
+  font-size: 14px;
+  font-weight: 1000;
 }
 .price-card li {
   display: flex;
-  gap: 9px;
+  align-items: flex-start;
+  gap: 11px;
   color: #2c3b50;
+  font-size: 14px;
   font-weight: 850;
   line-height: 1.45;
 }
 .price-card li::before {
   content: "✓";
+  display: grid;
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  place-items: center;
+  margin-top: 2px;
+  border: 1.5px solid var(--green);
+  border-radius: 999px;
   color: var(--green);
+  font-size: 10px;
+  line-height: 1;
   font-weight: 1000;
 }
 .price-card li.plus::before {
   content: "+";
+  border-color: var(--blue);
   color: var(--blue);
 }
 .plan-button {
   width: 100%;
   margin-top: auto;
+  min-height: 46px;
+  border-color: #cfe5dc;
+  border-radius: 6px;
+  color: #111827;
+  font-size: 14px;
 }
 .addon {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) 190px;
+  grid-template-columns: auto minmax(0, 1fr) 188px;
   gap: 16px;
   align-items: center;
   margin-top: 22px;
   border: 1px solid #d8e2ee;
   border-radius: 6px;
   background: #ffffff;
-  padding: 24px;
+  padding: 23px 26px;
 }
 .addon-icon {
   display: grid;
-  width: 52px;
-  height: 52px;
+  width: 50px;
+  height: 50px;
   place-items: center;
   border: 1px solid #cfe0ff;
   border-radius: 8px;
@@ -682,18 +737,19 @@ button { font: inherit; }
   font-size: 32px;
   line-height: 1;
   font-weight: 1000;
+  letter-spacing: -0.03em;
 }
 .addon-copy p {
   margin: 14px 0 0;
   color: #40516a;
   font-size: 16px;
   font-weight: 850;
-  line-height: 1.75;
+  line-height: 1.7;
 }
 .addon-price {
   min-height: 76px;
   border-left: 1px solid #e5ecf4;
-  padding-left: 32px;
+  padding-left: 30px;
   text-align: right;
 }
 .addon-price span {

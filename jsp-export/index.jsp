@@ -205,12 +205,12 @@
 
         <div class="pricing-grid">
           <article class="price-card">
-            <p>쇼피 입문 셀러를 위한 플랜</p>
             <h3>Free</h3>
             <div class="price free">무료</div>
+            <p>쇼피 입문 셀러를 위한 플랜</p>
             <dl>
               <div><dt>지원 플랫폼</dt><dd>Shopee 8개국</dd></div>
-              <div><dt>주문수집 기준</dt><dd>200건/월</dd></div>
+              <div><dt>주문수집</dt><dd>200건/월</dd></div>
             </dl>
             <ul>
               <li>통합 대시보드</li>
@@ -225,12 +225,12 @@
           </article>
 
           <article class="price-card">
-            <p>본격적으로 성장하는 셀러를 위한 플랜</p>
             <h3>Basic</h3>
             <div class="price"><span>월</span> 70,000원 <em>VAT 별도</em></div>
+            <p>본격적으로 성장하는 셀러를 위한 플랜</p>
             <dl>
               <div><dt>지원 플랫폼</dt><dd>Shopee 8개국</dd></div>
-              <div><dt>주문수집 기준</dt><dd>무제한</dd></div>
+              <div><dt>주문수집</dt><dd>무제한</dd></div>
             </dl>
             <ul>
               <li>통합 대시보드</li>
@@ -241,16 +241,16 @@
               <li>수동 재고 차감 발주리스트</li>
               <li>운영 분석 리포트</li>
             </ul>
-            <a class="button button-green plan-button" href="<%= loginUrl %>">플랜 선택하기</a>
+            <a class="button button-light plan-button" href="<%= loginUrl %>">플랜 선택하기</a>
           </article>
 
           <article class="price-card">
-            <p>다음 단계로 도약하는 셀러를 위한 플랜</p>
             <h3>Pro</h3>
             <div class="price"><span>월</span> 150,000원 <em>VAT 별도</em></div>
+            <p>다음 단계로 도약하는 셀러를 위한 플랜</p>
             <dl>
               <div><dt>지원 플랫폼</dt><dd>Shopee 8개국</dd></div>
-              <div><dt>주문수집 기준</dt><dd>무제한</dd></div>
+              <div><dt>주문수집</dt><dd>무제한</dd></div>
             </dl>
             <ul>
               <li>통합 대시보드</li>
@@ -264,7 +264,7 @@
               <li>운영 분석 리포트</li>
               <li class="plus">부가세신고자료 원클릭 다운로드</li>
             </ul>
-            <a class="button button-green plan-button" href="<%= loginUrl %>">플랜 선택하기</a>
+            <a class="button button-light plan-button" href="<%= loginUrl %>">플랜 선택하기</a>
           </article>
         </div>
 
