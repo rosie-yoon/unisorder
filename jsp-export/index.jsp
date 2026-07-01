@@ -141,11 +141,11 @@
         </div>
 
         <div class="feature-showcase" data-feature-showcase>
-          <div class="feature-showcase-copy">
-            <h3 id="feature-title">2개 플랫폼 8개국 주문을 한 화면에서</h3>
-          </div>
-
           <div class="feature-screen" aria-live="polite">
+            <div class="feature-showcase-copy">
+              <h3 id="feature-title">2개 플랫폼 8개국 주문을 한 화면에서</h3>
+            </div>
+
             <div class="feature-card-grid" role="tablist" aria-label="기능 화면 선택">
               <button class="feature-card active" type="button" data-feature-index="0" data-title="2개 플랫폼 8개국 주문을 한 화면에서">
                 <strong>통합 대시보드</strong>
