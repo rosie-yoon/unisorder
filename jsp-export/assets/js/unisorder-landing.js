@@ -86,7 +86,7 @@
     featureTimer = window.setInterval(function () {
       var count = showcase.querySelectorAll(".feature-card").length;
       setFeature((featureIndex + 1) % count);
-    }, 4600);
+    }, 2500);
   }
 
   if (showcase) {
