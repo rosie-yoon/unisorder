@@ -55,7 +55,7 @@
   <main id="main">
     <section class="hero">
       <div class="shell hero-shell">
-        <p class="hero-kicker">글로벌 전문 셀러들의 노하우를 담은 크로스보더 플랫폼</p>
+        <p class="hero-kicker">글로벌 전문 셀러들의 노하우를 담은<br class="mobile-only" /> 크로스보더 플랫폼</p>
         <h1>주문부터 재고,<br /><span>마진 관리까지 원스톱 처리</span></h1>
         <div class="hero-actions">
           <a class="button button-green button-large" href="<%= loginUrl %>">무료로 시작하기</a>
@@ -75,7 +75,7 @@
 
     <section id="use-cases" class="quote-strip" aria-label="활용사례">
       <div class="shell case-head">
-        <h2>처음 시작하는 셀러님도, 베테랑 셀러님도<br />유니스오더와 함께 한 걸음 더 성장할 수 있습니다.</h2>
+        <h2>처음 시작하는 셀러님도, 베테랑 셀러님도<br />유니스오더와 함께<br class="mobile-only" /> 한 걸음 더 성장할 수 있습니다.</h2>
       </div>
       <div class="shell quote-grid">
         <article>
